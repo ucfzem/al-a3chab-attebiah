@@ -586,7 +586,6 @@ function loadWikiThumb(img, ch){
   try {
     if (!img || !ch) return;
     var latin = (ch.latin || '').replace(/\([^)]*\)/g, '').replace(/^\s+|\s+$/g, '');
-    if (!img.dataset.wikiTried) img.dataset.wikiTried = '1';
     img.onerror = function(){ this.onerror = null; if(!this.dataset.wf){ this.dataset.wf='1'; this.src='./icon.svg'; } };
     if (window.WIKI_IMG_MAP && window.WIKI_IMG_MAP[latin]){
       img.src = window.WIKI_IMG_MAP[latin];
