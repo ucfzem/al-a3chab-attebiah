@@ -1,8 +1,8 @@
 'use strict';
 
 const app = document.getElementById('app');
-const BOOK = window.BOOK_DATA || [];
-const chapters = Array.isArray(BOOK) ? BOOK : (BOOK.entries || []);
+const BOOK = (typeof window !== 'undefined' && window.BOOK_DATA) ? window.BOOK_DATA : [];
+const chapters = Array.isArray(BOOK) ? BOOK : (BOOK && BOOK.entries ? BOOK.entries : []);
 
 let flat = null;
 let currentQuery = '';
