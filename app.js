@@ -551,3 +551,11 @@ function init() {
   route();
 }
 init();
+
+
+document.addEventListener('error', function(e){
+  if(e.target && e.target.tagName==='IMG'){
+    e.target.onerror=null;
+    e.target.src='./icon.svg';
+  }
+}, true);
