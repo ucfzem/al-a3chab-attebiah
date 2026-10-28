@@ -556,10 +556,11 @@ function init() {
     route();
   } catch(e){ renderError(); return; }
 }
+function boot(){ init(); }
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('DOMContentLoaded', boot);
 } else {
-  init();
+  setTimeout(boot, 0);
 }
 
 
