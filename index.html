@@ -111,3 +111,17 @@ try {
   }, 2000);
 } catch(e){}
 </script>
+<script>
+setTimeout(function(){
+  try{
+    if(document.getElementById('app') && document.getElementById('app').innerHTML.trim()===''){
+      var s1=document.createElement('script');
+      s1.src='./data.js?force='+Date.now();
+      var s2=document.createElement('script');
+      s2.src='./app.js?force='+Date.now();
+      document.body.appendChild(s1);
+      s1.onload=function(){document.body.appendChild(s2);};
+    }
+  }catch(e){}
+}, 500);
+</script>
