@@ -559,3 +559,12 @@ document.addEventListener('error', function(e){
     e.target.src='./icon.svg';
   }
 }, true);
+
+try {
+  var db = document.getElementById('debug-banner');
+  if(db){
+    db.style.display='block';
+    db.textContent = 'DEBUG: chapters=' + (typeof chapters !== 'undefined' ? chapters.length : 'undef') + ', BOOK=' + (typeof BOOK !== 'undefined' ? (Array.isArray(BOOK)?BOOK.length:typeof BOOK) : 'undef') + ', window.BOOK_DATA=' + (window.BOOK_DATA && Array.isArray(window.BOOK_DATA) ? window.BOOK_DATA.length : 'no');
+    setTimeout(function(){ db.style.display='none'; }, 8000);
+  }
+} catch(e){}
