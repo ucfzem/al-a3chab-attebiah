@@ -315,7 +315,7 @@ function renderHome() {
           chapters.map((ch, i) =>
             '<button type="button" class="toc-item" data-id="' + esc(ch.id) + '">' +
               (ch.image
-                ? '<img class="toc-thumb" src="./' + esc(ch.image) + '" alt="" loading="lazy" decoding="async" >'
+                ? '<img class="toc-thumb plant-img" data-latin="' + esc(ch.latin||'') + '" src="./' + esc(ch.image) + '" alt="" loading="lazy" decoding="async" onerror="this.onerror=null; this.src=\'./icon.svg\';" />'
                 : '<span class="toc-thumb placeholder" aria-hidden="true">🌿</span>') +
               '<span class="num">' + (ch.isHeader ? 'مقدمة' : toArabicDigits(i)) + '</span>' +
               '<span>' + esc(ch.title.replace(/^\d+\.\s*/, '')) + '</span>' +
@@ -334,6 +334,17 @@ function renderHome() {
   app.querySelectorAll('.toc-item').forEach(b => {
     b.onclick = () => { currentQuery = ''; go('#/read/' + encodeURIComponent(b.dataset.id)); };
   });
+  setTimeout(function(){
+    try {
+      document.querySelectorAll('.toc-item img.plant-img').forEach(function(img){
+        if (img.dataset.wikiLoaded) return;
+        var b = img.closest('.toc-item');
+        var id = b ? b.getAttribute('data-id') : '';
+        var ch = chapters.find(function(c){ return c.id === id; });
+        loadWikiThumb(img, ch || {});
+      });
+    } catch(e){}
+  }, 150);
 
   const gi = document.getElementById('globalSearch');
   const resultsEl = document.getElementById('searchResults');
