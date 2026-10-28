@@ -173,7 +173,7 @@ function renderReader(id) {
   const body = String(ch.content || '').split('\n').map(p => '<p>' + highlight(p, nq).html + '</p>').join('');
   const photo = ch.image
     ? '<figure class="plant-photo">' +
-        '<img src="./' + esc(ch.image) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" onerror="this.style.display=\'none\';" />' +
+        '<img class="plant-img" data-latin="' + esc(ch.latin||'') + '" src="./' + esc(ch.image) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" onerror="this.style.display=\'none\';" />' +
         '<figcaption>📷 ' + esc(ch.imageCredit || 'Wikimedia Commons') +
           (ch.imageLicense ? ' · <a href="' + esc(ch.imageLicenseUrl || '#') + '" target="_blank" rel="noopener">' + esc(ch.imageLicense) + '</a>' : '') +
           ' · <a href="' + esc(ch.imageSource || '#') + '" target="_blank" rel="noopener">ويكيميديا كومنز</a>' +
@@ -534,6 +534,18 @@ function route() {
   else if (r.view === 'sources') renderSources();
   else renderHome();
   window.scrollTo(0, 0);
+  setTimeout(function(){
+    try {
+      document.querySelectorAll('img.plant-img').forEach(function(img, idx){
+        if (img.dataset.wikiLoaded) return;
+        var alt = img.getAttribute('alt') || '';
+        var ch = null;
+        for (var i=0;i<chapters.length;i++){ if (alt.indexOf(chapters[i].title) >=0 || (chapters[i].latin && alt.indexOf(chapters[i].latin)>=0)) { ch = chapters[i]; break; } }
+        if (!ch && chapters[idx+1]) ch = chapters[idx+1];
+        loadWikiThumb(img, ch || {});
+      });
+    } catch(e){}
+  }, 150);
 }
 
 function renderError() {
@@ -559,3 +571,38 @@ document.addEventListener('error', function(e){
     e.target.src='./icon.svg';
   }
 }, true);
+
+
+// Wikimedia thumbnail loader
+function loadWikiThumb(img, ch){
+  try {
+    if (!img || img.dataset.wikiLoaded) return;
+    img.dataset.wikiLoaded = '1';
+    var candidates = [];
+    if (ch && ch.imageSource && ch.imageSource.indexOf('File:') >= 0) {
+      var part = ch.imageSource.split('File:')[1].split(/[#?]/)[0];
+      candidates.push(decodeURIComponent(part.replace(/%3A/g,':')));
+    }
+    var name = ((ch && (ch.latin || ch.title)) || '').replace(/\([^)]*\)/g,'').trim();
+    if (name) candidates.push(name.replace(/ /g,'_') + '.jpg');
+    function tryNext(i){
+      if (i >= candidates.length) return;
+      var file = candidates[i];
+      var url = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&prop=imageinfo&iiprop=url&iiurlwidth=1024&titles=File:' + encodeURIComponent(file);
+      fetch(url).then(function(r){return r.json();}).then(function(d){
+        var pages = d.query.pages || {};
+        var found = false;
+        for (var k in pages){
+          var page = pages[k];
+          if (page.imageinfo && page.imageinfo[0]){
+            var thumb = page.imageinfo[0].thumburl || page.imageinfo[0].url;
+            if (thumb){ img.src = thumb; found = true; break; }
+          }
+        }
+        if (!found) tryNext(i+1);
+      }).catch(function(){ tryNext(i+1); });
+    }
+    tryNext(0);
+  } catch(e){}
+}
+
