@@ -544,13 +544,23 @@ function renderError() {
 }
 
 function init() {
-  setupTheme();
-  setupNetwork();
-  if (!chapters.length) { renderError(); return; }
-  window.addEventListener('hashchange', route);
-  route();
+  try {
+    if (typeof setupTheme === 'function') setupTheme();
+    if (typeof setupNetwork === 'function') setupNetwork();
+  } catch(e){}
+  try {
+    if (!chapters || !chapters.length) { renderError(); return; }
+  } catch(e){ renderError(); return; }
+  try {
+    window.addEventListener('hashchange', route);
+    route();
+  } catch(e){ renderError(); return; }
 }
-init();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 
 
 document.addEventListener('error', function(e){
