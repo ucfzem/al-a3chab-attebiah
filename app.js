@@ -590,55 +590,65 @@ function loadWikiThumb(img, ch){
     if (!img || img.dataset.wikiLoaded) return;
     img.dataset.wikiLoaded = '1';
     if (!ch) return;
-    var candidates = [];
-    if (ch.imageSource && ch.imageSource.indexOf('File:') >= 0) {
-      var part = ch.imageSource.split('File:')[1].split(/[#?]/)[0];
-      try { part = decodeURIComponent(part); } catch(e){}
-      part = part.replace(/%3A/gi, ':').replace(/\+/g, ' ');
-      candidates.push(part);
-    }
     var latin = (ch.latin || '').replace(/\([^)]*\)/g, '').replace(/^\s+|\s+$/g, '');
-    if (latin) {
-      var l1 = latin.replace(/\s+/g, '_');
-      candidates.push(l1 + '.jpg');
-      candidates.push(l1 + '.JPG');
-      candidates.push(l1 + '.jpeg');
-      candidates.push(l1 + '.png');
-    }
     function setFallback(){
       img.onerror = function(){ this.onerror = null; this.src = './icon.svg'; };
       if (img.getAttribute('src') && img.getAttribute('src').indexOf('icon.svg') !== -1) return;
       img.src = './icon.svg';
     }
-    function tryNext(i){
-      if (i >= candidates.length) {
-        setFallback();
-        return;
+    if (!latin) { setFallback(); return; }
+    var done = false;
+    function apply(thumb){
+      if (done) return;
+      if (thumb && thumb.indexOf('http') === 0){
+        done = true;
+        img.crossOrigin = 'anonymous';
+        img.onerror = function(){ this.onerror = null; this.src = './icon.svg'; };
+        img.src = thumb;
+        return true;
       }
-      var file = candidates[i];
-      var url = 'https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&prop=imageinfo&iiprop=url|thumbnailurl&iiurlwidth=1024&titles=File:' + encodeURIComponent(file);
-      fetch(url, { credentials: 'omit' }).then(function(r){ return r.json(); }).then(function(d){
-        var pages = d && d.query && d.query.pages ? d.query.pages : {};
-        var found = false;
-        for (var k in pages){
-          if (k === '-1') continue;
-          var page = pages[k];
-          if (page.imageinfo && page.imageinfo[0]){
-            var info = page.imageinfo[0];
-            var thumb = info.thumburl || info.url;
-            if (thumb && thumb.indexOf('http') === 0){
-              img.crossOrigin = 'anonymous';
-              img.onerror = function(){ this.onerror = null; this.src = './icon.svg'; };
-              img.src = thumb;
-              found = true;
-              break;
+      return false;
+    }
+    function tryWiki(lang){
+      if (done) return;
+      var url = 'https://' + lang + '.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(latin);
+      fetch(url, { credentials: 'omit' }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(j){
+        var thumb = (j && j.thumbnail && j.thumbnail.source) || (j && j.originalimage && j.originalimage.source);
+        if (!apply(thumb)){ if (lang === 'en') tryWiki('fr'); else tryCommons(); }
+      }).catch(function(){ if (lang === 'en') tryWiki('fr'); else tryCommons(); });
+    }
+    function tryCommons(){
+      if (done) return;
+      var candidates = [];
+      if (ch.imageSource && ch.imageSource.indexOf('File:') >= 0) {
+        var part = ch.imageSource.split('File:')[1].split(/[#?]/)[0];
+        try { part = decodeURIComponent(part); } catch(e){}
+        part = part.replace(/%3A/gi, ':').replace(/\+/g, ' ');
+        candidates.push(part);
+      }
+      var l1 = latin.replace(/\s+/g, '_');
+      ['.jpg','.JPG','.jpeg','.png','.svg','.gif'].forEach(function(ext){ candidates.push(l1+ext); });
+      function tryNext(i){
+        if (done || i >= candidates.length){ setFallback(); return; }
+        var file = candidates[i];
+        var cUrl = 'https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&prop=imageinfo&iiprop=url|thumbnailurl&iiurlwidth=1024&titles=File:' + encodeURIComponent(file);
+        fetch(cUrl, { credentials: 'omit' }).then(function(r){ return r.json(); }).then(function(d){
+          var pages = d && d.query && d.query.pages ? d.query.pages : {};
+          for (var k in pages){
+            if (k === '-1') continue;
+            var page = pages[k];
+            if (page.imageinfo && page.imageinfo[0]){
+              var info = page.imageinfo[0];
+              var thumb = info.thumburl || info.url;
+              if (apply(thumb)) return;
             }
           }
-        }
-        if (!found) tryNext(i+1);
-      }).catch(function(){ tryNext(i+1); });
+          tryNext(i+1);
+        }).catch(function(){ tryNext(i+1); });
+      }
+      tryNext(0);
     }
-    tryNext(0);
+    tryWiki('en');
   } catch(e){}
 }
 
