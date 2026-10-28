@@ -171,15 +171,13 @@ function renderReader(id) {
   const isRef = /تُراجع البطاقة رقم/.test(ch.content || '');
   const note = isRef ? '<div class="ref-note">📌 بطاقة تعريف بالاسم المحلي — يُرجى مراجعة البطاقة الأصلية للاستعمالات الكاملة.</div>' : '';
   const body = String(ch.content || '').split('\n').map(p => '<p>' + highlight(p, nq).html + '</p>').join('');
-  const photo = ch.image
-    ? '<figure class="plant-photo">' +
-        '<img class="plant-img" data-latin="' + esc(ch.latin||'') + '" src="./' + esc(ch.image) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" onerror="this.onerror=null; this.src=\'./icon.svg\';" />' +
+  const photo = '<figure class="plant-photo">' +
+        '<img class="plant-img" data-latin="' + esc(ch.latin||'') + '" src="' + (ch.image ? './' + esc(ch.image) : './icon.svg') + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" onerror="this.onerror=null; if(this.dataset.fbk){ this.src=\'./icon.svg\'; }else{this.dataset.fbk=\'1\';}" />' +
         '<figcaption>📷 ' + esc(ch.imageCredit || 'Wikimedia Commons') +
           (ch.imageLicense ? ' · <a href="' + esc(ch.imageLicenseUrl || '#') + '" target="_blank" rel="noopener">' + esc(ch.imageLicense) + '</a>' : '') +
           ' · <a href="' + esc(ch.imageSource || '#') + '" target="_blank" rel="noopener">ويكيميديا كومنز</a>' +
         '</figcaption>' +
-      '</figure>'
-    : '<div class="plant-photo placeholder" role="img" aria-label="لا توجد صورة متاحة لهذا النبات"><span>🌿</span><small>الصورة قيد المراجعة</small></div>';
+      '</figure>';
 
   const prev = idx > 0 ? chapters[idx - 1] : null;
   const next = idx < chapters.length - 1 ? chapters[idx + 1] : null;
@@ -548,7 +546,6 @@ function route() {
   setTimeout(function(){
     try {
       document.querySelectorAll('img.plant-img').forEach(function(img, idx){
-        if (img.dataset.wikiLoaded) return;
         var alt = img.getAttribute('alt') || '';
         var ch = null;
         for (var i=0;i<chapters.length;i++){ if (alt.indexOf(chapters[i].title) >=0 || (chapters[i].latin && alt.indexOf(chapters[i].latin)>=0)) { ch = chapters[i]; break; } }
@@ -556,7 +553,7 @@ function route() {
         loadWikiThumb(img, ch || {});
       });
     } catch(e){}
-  }, 150);
+  }, 50);
 }
 
 function renderError() {
@@ -587,11 +584,10 @@ document.addEventListener('error', function(e){
 // Wikimedia thumbnail loader
 function loadWikiThumb(img, ch){
   try {
-    if (!img || img.dataset.wikiLoaded) return;
-    img.dataset.wikiLoaded = '1';
-    if (!ch) return;
+    if (!img || !ch) return;
     var latin = (ch.latin || '').replace(/\([^)]*\)/g, '').replace(/^\s+|\s+$/g, '');
-    img.onerror = function(){ this.onerror = null; this.src = './icon.svg'; };
+    if (!img.dataset.wikiTried) img.dataset.wikiTried = '1';
+    img.onerror = function(){ this.onerror = null; if(!this.dataset.wf){ this.dataset.wf='1'; this.src='./icon.svg'; } };
     if (window.WIKI_IMG_MAP && window.WIKI_IMG_MAP[latin]){
       img.src = window.WIKI_IMG_MAP[latin];
       return;
