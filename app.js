@@ -95,7 +95,7 @@ function setupTheme() {
 let fontSize = 1;
 try { fontSize = parseFloat(localStorage.getItem('a3chab_font')) || 1; } catch (e) {}
 function applyFontSize() {
-  document.documentElement.style.setProperty('--content-font-size', fontSize + 'rem');
+  try { if (document.documentElement && document.documentElement.style) document.documentElement.style.setProperty('--content-font-size', fontSize + 'rem'); } catch(e){}
   try { localStorage.setItem('a3chab_font', String(fontSize)); } catch (e) {}
 }
 function fontControlsHTML() {
