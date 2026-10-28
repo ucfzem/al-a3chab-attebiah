@@ -2096,3 +2096,4 @@ window.BOOK_DATA = [
 "imageSource": "https://commons.wikimedia.org/wiki/File%3ACitrus_aurantium.jpg"
 }
 ];
+try { if(typeof window!=='undefined') window._DATA_OK = (window.BOOK_DATA||[]).length; } catch(e){}
