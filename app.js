@@ -579,3 +579,5 @@ try {
     setTimeout(function(){ db.style.display='none'; }, 8000);
   }
 } catch(e){}
+
+try{ if((typeof chapters!=='undefined'&&chapters.length)&&document.getElementById('app')&&document.getElementById('app').innerHTML===''){ if(typeof route==='function') route(); else if(typeof renderHome==='function'){ document.getElementById('app').innerHTML=''; renderHome(); } } }catch(e){}
