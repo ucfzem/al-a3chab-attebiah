@@ -173,7 +173,7 @@ function renderReader(id) {
   const body = String(ch.content || '').split('\n').map(p => '<p>' + highlight(p, nq).html + '</p>').join('');
   const photo = ch.image
     ? '<figure class="plant-photo">' +
-        '<img class="plant-img" data-latin="' + esc(ch.latin||'') + '" src="./' + esc(ch.image) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" onerror="this.style.display=\'none\';" />' +
+        '<img class="plant-img" data-latin="' + esc(ch.latin||'') + '" src="./' + esc(ch.image) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" onerror="this.onerror=null; this.src=\'./icon.svg\';" />' +
         '<figcaption>📷 ' + esc(ch.imageCredit || 'Wikimedia Commons') +
           (ch.imageLicense ? ' · <a href="' + esc(ch.imageLicenseUrl || '#') + '" target="_blank" rel="noopener">' + esc(ch.imageLicense) + '</a>' : '') +
           ' · <a href="' + esc(ch.imageSource || '#') + '" target="_blank" rel="noopener">ويكيميديا كومنز</a>' +
@@ -606,9 +606,9 @@ function loadWikiThumb(img, ch){
           thumb = thumb.replace('/330px-', '/1024px-').replace('/500px-', '/1024px-');
           tried = true;
           img.src = thumb;
-        } else {
-          throw 0;
+          return;
         }
+        throw 0;
       }).catch(function(){ if (lang === 'en') tryWiki('fr'); else tryCommons(); });
     }
     function tryCommons(){
