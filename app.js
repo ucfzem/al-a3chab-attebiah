@@ -1,8 +1,8 @@
 'use strict';
 
 const app = document.getElementById('app');
-const BOOK = (typeof window !== 'undefined' && window.BOOK_DATA) ? window.BOOK_DATA : [];
-const chapters = Array.isArray(BOOK) ? BOOK : (BOOK && BOOK.entries ? BOOK.entries : []);
+const BOOK = window.BOOK_DATA || [];
+const chapters = Array.isArray(BOOK) ? BOOK : (BOOK.entries || []);
 
 let flat = null;
 let currentQuery = '';
@@ -95,7 +95,7 @@ function setupTheme() {
 let fontSize = 1;
 try { fontSize = parseFloat(localStorage.getItem('a3chab_font')) || 1; } catch (e) {}
 function applyFontSize() {
-  try { if (document.documentElement && document.documentElement.style) document.documentElement.style.setProperty('--content-font-size', fontSize + 'rem'); } catch(e){}
+  document.documentElement.style.setProperty('--content-font-size', fontSize + 'rem');
   try { localStorage.setItem('a3chab_font', String(fontSize)); } catch (e) {}
 }
 function fontControlsHTML() {
@@ -173,7 +173,7 @@ function renderReader(id) {
   const body = String(ch.content || '').split('\n').map(p => '<p>' + highlight(p, nq).html + '</p>').join('');
   const photo = ch.image
     ? '<figure class="plant-photo">' +
-        '<img src="./' + esc(ch.image) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" >' +
+        '<img src="./' + esc(ch.image) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" onerror="this.onerror=null; var fig=this.parentNode; fig.innerHTML='<div class=\'plant-photo placeholder\' role=\'img\' aria-label=\'لا توجد صورة متاحة لهذا النبات\'><span>🌿</span><small>الصورة قيد المراجعة</small></div>';">' +
         '<figcaption>📷 ' + esc(ch.imageCredit || 'Wikimedia Commons') +
           (ch.imageLicense ? ' · <a href="' + esc(ch.imageLicenseUrl || '#') + '" target="_blank" rel="noopener">' + esc(ch.imageLicense) + '</a>' : '') +
           ' · <a href="' + esc(ch.imageSource || '#') + '" target="_blank" rel="noopener">ويكيميديا كومنز</a>' +
@@ -315,7 +315,7 @@ function renderHome() {
           chapters.map((ch, i) =>
             '<button type="button" class="toc-item" data-id="' + esc(ch.id) + '">' +
               (ch.image
-                ? '<img class="toc-thumb" src="./' + esc(ch.image) + '" alt="" loading="lazy" decoding="async" >'
+                ? '<img class="toc-thumb" src="./' + esc(ch.image) + '" alt="" loading="lazy" decoding="async" onerror="this.onerror=null; this.style.display='none'; var p=document.createElement('span'); p.className='toc-thumb placeholder'; p.setAttribute('aria-hidden','true'); p.textContent='🌿'; this.parentNode.insertBefore(p,this);">'
                 : '<span class="toc-thumb placeholder" aria-hidden="true">🌿</span>') +
               '<span class="num">' + (ch.isHeader ? 'مقدمة' : toArabicDigits(i)) + '</span>' +
               '<span>' + esc(ch.title.replace(/^\d+\.\s*/, '')) + '</span>' +
@@ -544,24 +544,13 @@ function renderError() {
 }
 
 function init() {
-  try {
-    if (typeof setupTheme === 'function') setupTheme();
-    if (typeof setupNetwork === 'function') setupNetwork();
-  } catch(e){}
-  try {
-    if (!chapters || !chapters.length) { renderError(); return; }
-  } catch(e){ renderError(); return; }
-  try {
-    window.addEventListener('hashchange', route);
-    route();
-  } catch(e){ renderError(); return; }
+  setupTheme();
+  setupNetwork();
+  if (!chapters.length) { renderError(); return; }
+  window.addEventListener('hashchange', route);
+  route();
 }
-function boot(){ init(); }
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', boot);
-} else {
-  setTimeout(boot, 0);
-}
+init();
 
 
 document.addEventListener('error', function(e){
@@ -570,16 +559,3 @@ document.addEventListener('error', function(e){
     e.target.src='./icon.svg';
   }
 }, true);
-
-try {
-  var db = document.getElementById('debug-banner');
-  if(db){
-    db.style.display='block';
-    db.textContent = 'DEBUG: chapters=' + (typeof chapters !== 'undefined' ? chapters.length : 'undef') + ', BOOK=' + (typeof BOOK !== 'undefined' ? (Array.isArray(BOOK)?BOOK.length:typeof BOOK) : 'undef') + ', window.BOOK_DATA=' + (window.BOOK_DATA && Array.isArray(window.BOOK_DATA) ? window.BOOK_DATA.length : 'no');
-    setTimeout(function(){ db.style.display='none'; }, 8000);
-  }
-} catch(e){}
-
-try{ if((typeof chapters!=='undefined'&&chapters.length)&&document.getElementById('app')&&document.getElementById('app').innerHTML===''){ if(typeof route==='function') route(); else if(typeof renderHome==='function'){ document.getElementById('app').innerHTML=''; renderHome(); } } }catch(e){}
-
-window.addEventListener('load', function(){ try{ if(document.getElementById('app') && document.getElementById('app').innerHTML.trim()===''){ if(typeof renderHome==='function'){ document.getElementById('app').innerHTML=''; renderHome(); } } }catch(e){} });
