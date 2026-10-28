@@ -581,3 +581,5 @@ try {
 } catch(e){}
 
 try{ if((typeof chapters!=='undefined'&&chapters.length)&&document.getElementById('app')&&document.getElementById('app').innerHTML===''){ if(typeof route==='function') route(); else if(typeof renderHome==='function'){ document.getElementById('app').innerHTML=''; renderHome(); } } }catch(e){}
+
+window.addEventListener('load', function(){ try{ if(document.getElementById('app') && document.getElementById('app').innerHTML.trim()===''){ if(typeof renderHome==='function'){ document.getElementById('app').innerHTML=''; renderHome(); } } }catch(e){} });
