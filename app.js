@@ -171,7 +171,7 @@ function renderReader(id) {
   const isRef = /تُراجع البطاقة رقم/.test(ch.content || '');
   const note = isRef ? '<div class="ref-note">📌 بطاقة تعريف بالاسم المحلي — يُرجى مراجعة البطاقة الأصلية للاستعمالات الكاملة.</div>' : '';
   const body = String(ch.content || '').split('\n').map(p => '<p>' + highlight(p, nq).html + '</p>').join('');
-    const photo = ch.image
+  const photo = ch.image
     ? '<figure class="plant-photo">' +
         '<img src="./' + esc(ch.image) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" onerror="this.style.display=\'none\';" />' +
         '<figcaption>📷 ' + esc(ch.imageCredit || 'Wikimedia Commons') +
