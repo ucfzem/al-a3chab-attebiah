@@ -578,25 +578,40 @@ function loadWikiThumb(img, ch){
   try {
     if (!img || img.dataset.wikiLoaded) return;
     img.dataset.wikiLoaded = '1';
+    if (!ch) return;
     var candidates = [];
-    if (ch && ch.imageSource && ch.imageSource.indexOf('File:') >= 0) {
+    if (ch.imageSource && ch.imageSource.indexOf('File:') >= 0) {
       var part = ch.imageSource.split('File:')[1].split(/[#?]/)[0];
-      candidates.push(decodeURIComponent(part.replace(/%3A/g,':')));
+      candidates.push(decodeURIComponent(part.replace(/%3A/gi, ':')));
     }
-    var name = ((ch && (ch.latin || ch.title)) || '').replace(/\([^)]*\)/g,'').trim();
-    if (name) candidates.push(name.replace(/ /g,'_') + '.jpg');
+    var latin = (ch.latin || '').replace(/\([^)]*\)/g, '').replace(/^\s+|\s+$/g, '');
+    if (latin) {
+      candidates.push(latin.replace(/\s+/g, '_') + '.jpg');
+      candidates.push(latin.replace(/\s+/g, '_') + '.JPG');
+    }
     function tryNext(i){
-      if (i >= candidates.length) return;
+      if (i >= candidates.length) {
+        img.onerror = function(){ this.onerror = null; this.src = './icon.svg'; };
+        if (img.src.indexOf('icon.svg') === -1) img.src = './icon.svg';
+        return;
+      }
       var file = candidates[i];
-      var url = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&prop=imageinfo&iiprop=url&iiurlwidth=1024&titles=File:' + encodeURIComponent(file);
-      fetch(url).then(function(r){return r.json();}).then(function(d){
-        var pages = d.query.pages || {};
+      var url = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&prop=imageinfo&iiprop=url&iiurlwidth=800&titles=File:' + encodeURIComponent(file);
+      fetch(url).then(function(r){ return r.json(); }).then(function(d){
+        var pages = d.query && d.query.pages ? d.query.pages : {};
         var found = false;
         for (var k in pages){
+          if (k === '-1') continue;
           var page = pages[k];
           if (page.imageinfo && page.imageinfo[0]){
-            var thumb = page.imageinfo[0].thumburl || page.imageinfo[0].url;
-            if (thumb){ img.src = thumb; found = true; break; }
+            var info = page.imageinfo[0];
+            var thumb = info.thumburl || info.url;
+            if (thumb){
+              img.src = thumb;
+              img.onerror = function(){ this.onerror = null; this.src = './icon.svg'; };
+              found = true;
+              break;
+            }
           }
         }
         if (!found) tryNext(i+1);
