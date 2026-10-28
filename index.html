@@ -41,3 +41,12 @@
   </script>
 </body>
 </html>
+<script>
+setTimeout(function(){
+  var b=document.getElementById('debug-banner');
+  if(!b){b=document.createElement('div');b.id='debug-banner';b.style.cssText='position:fixed;bottom:0;left:0;right:0;background:#000;color:#0f0;font-size:11px;padding:4px;z-index:9999;';document.body.appendChild(b);}
+  try{
+    b.textContent='ch:'+(typeof chapters!=='undefined'?chapters.length:'u')+' bd:'+(typeof window.BOOK_DATA!=='undefined'?window.BOOK_DATA.length:'u')+' app:'+(document.getElementById('app')?document.getElementById('app').innerHTML.length:'n');
+  }catch(e){b.textContent='e';}
+}, 1500);
+</script>
