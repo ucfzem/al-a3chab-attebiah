@@ -586,62 +586,35 @@ function loadWikiThumb(img, ch){
   try {
     if (!img || !ch) return;
     var latin = (ch.latin || '').replace(/\([^)]*\)/g, '').replace(/^\s+|\s+$/g, '');
-    img.onerror = function(){ this.onerror = null; if(!this.dataset.wf){ this.dataset.wf='1'; this.src='./icon.svg'; } };
+    img.onerror = function(){ this.onerror = null; this.src = './icon.svg'; };
     if (window.WIKI_IMG_MAP && window.WIKI_IMG_MAP[latin]){
       img.src = window.WIKI_IMG_MAP[latin];
       return;
     }
-    var tried = false;
-    function tryWiki(lang){
-      if (tried) return;
-      var url = 'https://' + lang + '.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(latin);
-      fetch(url, { credentials: 'omit' }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(j){
+    var url = 'https://' + 'en' + '.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(latin);
+    fetch(url).then(function(r){ return r.json(); }).then(function(j){
+      var thumb = (j && j.thumbnail && j.thumbnail.source) || (j && j.originalimage && j.originalimage.source);
+      if (thumb){
+        thumb = thumb.replace('/330px-', '/800px-').replace('/500px-', '/800px-');
+        img.src = thumb;
+        return;
+      }
+      throw 0;
+    }).catch(function(){
+      fetch('https://fr.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(latin)).then(function(r){return r.json();}).then(function(j){
         var thumb = (j && j.thumbnail && j.thumbnail.source) || (j && j.originalimage && j.originalimage.source);
-        if (thumb){
-          thumb = thumb.replace('/330px-', '/1024px-').replace('/500px-', '/1024px-');
-          tried = true;
-          img.src = thumb;
-          return;
-        }
+        if (thumb){ thumb = thumb.replace('/330px-', '/800px-').replace('/500px-', '/800px-'); img.src = thumb; return; }
         throw 0;
-      }).catch(function(){ if (lang === 'en') tryWiki('fr'); else tryCommons(); });
-    }
-    function tryCommons(){
-      if (tried) return;
-      var candidates = [];
-      if (ch.imageSource && ch.imageSource.indexOf('File:') >= 0) {
-        var part = ch.imageSource.split('File:')[1].split(/[#?]/)[0];
-        try { part = decodeURIComponent(part); } catch(e){}
-        part = part.replace(/%3A/gi, ':').replace(/\+/g, ' ');
-        candidates.push(part);
-      }
-      var l1 = latin.replace(/\s+/g, '_');
-      ['.jpg','.JPG','.jpeg','.png'].forEach(function(ext){ candidates.push(l1+ext); });
-      function tryNext(i){
-        if (tried || i >= candidates.length){ img.src = './icon.svg'; return; }
-        var file = candidates[i];
-        var cUrl = 'https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&prop=imageinfo&iiprop=url|thumbnailurl&iiurlwidth=1024&titles=File:' + encodeURIComponent(file);
-        fetch(cUrl, { credentials: 'omit' }).then(function(r){ return r.json(); }).then(function(d){
+      }).catch(function(){
+        var l1 = latin.replace(/\s+/g, '_');
+        var u = 'https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&prop=imageinfo&iiprop=url&iiurlwidth=800&titles=File:' + encodeURIComponent(l1 + '.jpg');
+        fetch(u).then(function(r){return r.json();}).then(function(d){
           var pages = d && d.query && d.query.pages ? d.query.pages : {};
-          for (var k in pages){
-            if (k === '-1') continue;
-            var page = pages[k];
-            if (page.imageinfo && page.imageinfo[0]){
-              var info = page.imageinfo[0];
-              var thumb = info.thumburl || info.url;
-              if (thumb && thumb.indexOf('http') === 0){
-                tried = true;
-                img.src = thumb;
-                return;
-              }
-            }
-          }
-          tryNext(i+1);
-        }).catch(function(){ tryNext(i+1); });
-      }
-      tryNext(0);
-    }
-    tryWiki('en');
+          for (var k in pages){ if(k!=='-1' && pages[k].imageinfo && pages[k].imageinfo[0]){ var t=pages[k].imageinfo[0].thumburl||pages[k].imageinfo[0].url; if(t){img.src=t;return;}}}
+          img.src='./icon.svg';
+        }).catch(function(){ img.src='./icon.svg'; });
+      });
+    });
   } catch(e){}
 }
 
