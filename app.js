@@ -171,9 +171,9 @@ function renderReader(id) {
   const isRef = /تُراجع البطاقة رقم/.test(ch.content || '');
   const note = isRef ? '<div class="ref-note">📌 بطاقة تعريف بالاسم المحلي — يُرجى مراجعة البطاقة الأصلية للاستعمالات الكاملة.</div>' : '';
   const body = String(ch.content || '').split('\n').map(p => '<p>' + highlight(p, nq).html + '</p>').join('');
-  const photo = ch.image
+    const photo = ch.image
     ? '<figure class="plant-photo">' +
-        '<img src="./' + esc(ch.image) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" onerror="this.onerror=null; var fig=this.parentNode; fig.innerHTML='<div class=\'plant-photo placeholder\' role=\'img\' aria-label=\'لا توجد صورة متاحة لهذا النبات\'><span>🌿</span><small>الصورة قيد المراجعة</small></div>';">' +
+        '<img src="./' + esc(ch.image) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" onerror="this.style.display=\'none\';" />' +
         '<figcaption>📷 ' + esc(ch.imageCredit || 'Wikimedia Commons') +
           (ch.imageLicense ? ' · <a href="' + esc(ch.imageLicenseUrl || '#') + '" target="_blank" rel="noopener">' + esc(ch.imageLicense) + '</a>' : '') +
           ' · <a href="' + esc(ch.imageSource || '#') + '" target="_blank" rel="noopener">ويكيميديا كومنز</a>' +
@@ -315,7 +315,7 @@ function renderHome() {
           chapters.map((ch, i) =>
             '<button type="button" class="toc-item" data-id="' + esc(ch.id) + '">' +
               (ch.image
-                ? '<img class="toc-thumb" src="./' + esc(ch.image) + '" alt="" loading="lazy" decoding="async" onerror="this.onerror=null; this.style.display='none'; var p=document.createElement('span'); p.className='toc-thumb placeholder'; p.setAttribute('aria-hidden','true'); p.textContent='🌿'; this.parentNode.insertBefore(p,this);">'
+                ? '<img class="toc-thumb" src="./' + esc(ch.image) + '" alt="" loading="lazy" decoding="async" >'
                 : '<span class="toc-thumb placeholder" aria-hidden="true">🌿</span>') +
               '<span class="num">' + (ch.isHeader ? 'مقدمة' : toArabicDigits(i)) + '</span>' +
               '<span>' + esc(ch.title.replace(/^\d+\.\s*/, '')) + '</span>' +
