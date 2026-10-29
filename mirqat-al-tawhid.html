@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مِرقاة التوحيد</title>
+  <!-- Play CDN is prototype-grade - acknowledged per requirements -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: '#fdfbf7',
+            surface: '#fffdf9',
+            text: '#2d2d2d',
+            muted: '#6b6b6b',
+            accent: '#0f5132',
+            'accent-soft': '#e8f0ec',
+            divider: '#e5e0d5',
+            warn: '#b45309',
+          },
+          fontFamily: {
+            amiri: ['Amiri', 'serif'],
+            cairo: ['Cairo', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-scale: 22px;
+      --line-height: 2.1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #fdfbf7;
+      color: #2d2d2d;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .font-amiri {
+      font-family: 'Amiri', serif;
+    }
+
+    .base-text {
+      font-family: 'Amiri', serif;
+      font-size: var(--font-scale);
+      line-height: var(--line-height);
+      text-align: justify;
+      max-width: 68ch;
+    }
+
+    .fath-text {
+      font-family: 'Amiri', serif;
+      font-size: calc(var(--font-scale) * 0.92);
+      line-height: var(--line-height);
+      text-align: justify;
+    }
+
+    .fatawa-text {
+      font-family: 'Amiri', serif;
+      font-size: calc(var(--font-scale) * 0.95);
+      line-height: var(--line-height);
+      text-align: justify;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: #e5e0d5;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: #0f5132;
+      border-radius: 3px;
+    }
+
+    mark {
+      background-color: #fbbf24;
+      color: #92400e;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .focus-ring:focus-visible {
+      outline: 2px solid #0f5132;
+      outline-offset: 2px;
+    }
+
+    .tree-node.active {
+      background-color: #e8f0ec;
+      color: #0f5132;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .tree-node.active::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background-color: #0f5132;
+    }
+
+    .drawer {
+      transform: translateX(100%);
+      transition: transform 150ms ease-in-out;
+    }
+
+    .drawer.open {
+      transform: translateX(0);
+    }
+
+    .tab-btn.active {
+      background-color: #0f5132;
+      color: white;
+    }
+
+    .fath-quote {
+      border-right: 2px solid rgba(15, 81, 50, 0.3);
+      padding-right: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .fatawa-card {
+      border-right: 4px solid #b45309;
+    }
+
+    .badge-unverified {
+      background-color: #fef3c7;
+      color: #b45309;
+      font-size: 0.75rem;
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+    }
+
+    .line-compressed {
+      --line-height: 1.8;
+    }
+
+    .line-relaxed {
+      --line-height: 2.1;
+    }
+  </style>
+</head>
+
+<body class="bg-bg text-text">
+  <!-- Verification Banner -->
+  <div id="verificationBanner" class="bg-warn/10 border-b border-warn/30 px-4 py-2 text-sm text-warn flex items-center justify-between">
+    <span>«هذه نصوص توضيحية للعرض التقني، ولا تُنسب للمؤلفين إلا بعد المراجعة على الطبعات المطبوعة.»</span>
+    <button id="dismissBanner" class="focus-ring px-2 py-1" aria-label="إخفاء التنبيه">✕</button>
+  </div>
+
+  <!-- Header -->
+  <header class="bg-surface border-b border-divider sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
+      <button id="mobileMenuBtn" class="lg:hidden focus-ring p-2" aria-label="فتح القائمة">☰</button>
+      <h1 class="text-xl font-bold font-cairo text-accent">مِرقاة التوحيد</h1>
+      <div class="flex-1 max-w-md relative">
+        <input type="text" id="globalSearch" placeholder="ابحث في المتن والشرح والفتاوى..."
+          class="w-full px-4 py-2 border border-divider rounded-lg focus-ring bg-surface text-text"
+          autocomplete="off">
+        <div id="searchResults" class="absolute top-full mt-1 w-full bg-surface border border-divider rounded-lg shadow-lg max-h-96 overflow-y-auto hidden scrollbar-thin"></div>
+      </div>
+      <div class="flex items-center gap-2">
+        <select id="categoryFilter" class="px-3 py-2 border border-divider rounded-lg focus-ring bg-surface text-text">
+          <option value="الكل">الكل</option>
+          <option value="الربوبية">الربوبية</option>
+          <option value="الألوهية">الألوهية</option>
+        </select>
+        <button id="bookmarksBtn" class="focus-ring p-2 relative" aria-label="قائمة المحفوظات">🔖<span id="bookmarkCount" class="absolute -top-1 -left-1 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span></button>
+        <button id="pinBtn" class="focus-ring p-2" aria-label="وضع المقارنة" title="وضع المقارنة">⚖️</button>
+      </div>
+    </div>
+    <!-- Reading Controls -->
+    <div class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-4 flex-wrap text-sm border-t border-divider">
+      <div class="flex items-center gap-2">
+        <label>حجم الخط:</label>
+        <input type="range" id="fontSlider" min="16" max="32" step="1" value="22" class="w-32">
+        <span id="fontSizeLabel">22px</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <label>تباعد الأسطر:</label>
+        <button id="lineHeightBtn" class="px-3 py-1 border border-divider rounded focus-ring">مريح</button>
+      </div>
+      <label class="flex items-center gap-2">
+        <input type="checkbox" id="tashkeelToggle" class="focus-ring">
+        <span>إظهار التشكيل</span>
+      </label>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="max-w-7xl mx-auto flex">
+    <!-- Desktop Sidebar -->
+    <aside class="hidden lg:block w-[300px] border-l border-divider h-[calc(100vh-120px)] sticky top-[120px] overflow-y-auto scrollbar-thin p-4">
+      <div id="sidebarTree" class="space-y-2"></div>
+    </aside>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileDrawerOverlay" class="lg:hidden fixed inset-0 bg-black/50 z-50 hidden"></div>
+    <aside id="mobileDrawer" class="lg:hidden fixed top-0 right-0 w-[300px] h-full bg-surface z-50 drawer overflow-y-auto scrollbar-thin p-4">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-bold">المحتويات</h2>
+        <button id="closeDrawer" class="focus-ring p-2" aria-label="إغلاق">✕</button>
+      </div>
+      <div id="mobileSidebarTree" class="space-y-2"></div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 min-w-0">
+      <!-- Mobile Tabs -->
+      <div class="lg:hidden flex border-b border-divider sticky top-[120px] bg-surface z-30">
+        <button class="tab-btn flex-1 py-3 px-4 focus-ring active" data-tab="matn">المتن</button>
+        <button class="tab-btn flex-1 py-3 px-4 focus-ring" data-tab="sharh">الشرح</button>
+        <button class="tab-btn flex-1 py-3 px-4 focus-ring" data-tab="fatawa">الفتاوى</button>
+      </div>
+
+      <!-- Content Area -->
+      <div id="contentArea" class="p-4">
+        <!-- Desktop 3-column or normal layout -->
+        <div id="normalLayout">
+          <div class="mb-6">
+            <h2 id="topicTitle" class="text-2xl font-bold font-cairo mb-2"></h2>
+            <div id="topicCategories" class="flex gap-2 flex-wrap"></div>
+          </div>
+
+          <section class="mb-6">
+            <div class="flex items-center justify-between mb-3 p-2 bg-accent-soft rounded-lg sticky top-[160px] z-20">
+              <h3 class="font-bold font-cairo text-accent">المتن</h3>
+              <button class="bookmark-btn focus-ring p-1" data-pane="matn" aria-label="حفظ في المفضلة">🔖</button>
+            </div>
+            <div id="matnContent" class="base-text"></div>
+          </section>
+
+          <section class="mb-6">
+            <div class="flex items-center justify-between mb-3 p-2 bg-accent-soft rounded-lg sticky top-[160px] z-20">
+              <h3 class="font-bold font-cairo text-accent">الشرح - فتح المجيد</h3>
+              <button class="bookmark-btn focus-ring p-1" data-pane="sharh" aria-label="حفظ في المفضلة">🔖</button>
+            </div>
+            <div id="sharhContent" class="fath-text p-4 bg-surface rounded-xl border border-divider"></div>
+          </section>
+
+          <section class="mb-6">
+            <div class="flex items-center justify-between mb-3 p-2 bg-amber-50 rounded-lg sticky top-[160px] z-20">
+              <h3 class="font-bold font-cairo text-warn">الفتاوى</h3>
+              <button class="bookmark-btn focus-ring p-1" data-pane="fatawa" aria-label="حفظ في المفضلة">🔖</button>
+            </div>
+            <div id="fatawaContent" class="space-y-4"></div>
+          </section>
+
+          <section class="mb-6">
+            <h3 class="font-bold font-cairo mb-3">ملاحظاتي</h3>
+            <textarea id="notesTextarea" class="w-full p-3 border border-divider rounded-lg focus-ring bg-surface text-text" rows="4" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+            <div id="notesSaved" class="text-sm text-accent mt-1 hidden">حُفظ</div>
+          </section>
+        </div>
+
+        <!-- Pin/Compare Layout (Desktop only) -->
+        <div id="pinLayout" class="hidden">
+          <div class="mb-6">
+            <h2 id="topicTitlePin" class="text-xl font-bold font-cairo mb-2"></h2>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <div class="sticky top-[160px] bg-accent-soft p-2 rounded mb-2">
+                <h3 class="font-bold text-accent text-sm">المتن</h3>
+              </div>
+              <div id="matnContentPin" class="text-sm base-text" style="font-size: calc(var(--font-scale) * 0.8);"></div>
+            </div>
+            <div>
+              <div class="sticky top-[160px] bg-accent-soft p-2 rounded mb-2">
+                <h3 class="font-bold text-accent text-sm">الشرح</h3>
+              </div>
+              <div id="sharhContentPin" class="text-sm fath-text p-2 bg-surface rounded border border-divider" style="font-size: calc(var(--font-scale) * 0.75);"></div>
+            </div>
+            <div>
+              <div class="sticky top-[160px] bg-amber-50 p-2 rounded mb-2">
+                <h3 class="font-bold text-warn text-sm">الفتاوى</h3>
+              </div>
+              <div id="fatawaContentPin" class="space-y-2" style="font-size: calc(var(--font-scale) * 0.78);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Bookmarks Dropdown -->
+  <div id="bookmarksDropdown" class="absolute top-16 left-4 bg-surface border border-divider rounded-lg shadow-lg hidden z-50 max-w-sm w-full max-h-96 overflow-y-auto scrollbar-thin"></div>
+
+  <script>
+    // Data
+    const DB = {
+      meta: {
+        title: "مِرقاة التوحيد",
+        authors: { name: "تحرير علمي", note: "نصوص توضيحية للعرض التقني" },
+        disclaimer: "هذه نصوص توضيحية للعرض التقني، ولا تُنسب للمؤلفين إلا بعد المراجعة على الطبعات المطبوعة."
+      },
+      topics: [
+        {
+          id: "t1",
+          slug: "bab-ikhlas",
+          categories: ["الألوهية"],
+          title: "باب الإخلاص وفضل التوحيد",
+          order: 1,
+          kitab: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] الإخلاص هو تصفية العمل لله وحده لا شريك له، وإخلاص النية لله في جميع العبادات. قال الله تعالى: {وَمَا أُمِرُوا إِلَّا لِيَعْبُدُوا اللَّهَ مُخْلِصِينَ لَهُ الدِّينَ حُنَفَاءَ}. وقد وعد الله مخلصيه بالثواب العظيم والفوز الكبير، وجعل التوحيد سببًا لدخول الجنة ونجاة من النار.",
+            verificationStatus: "placeholder",
+            source: { book: "كتاب التوحيد", chapter: "باب 1", page: "١" }
+          },
+          fath: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] قال شيخ الإسلام ابن تيمية رحمه الله: الإخلاص هو أن يريد العبد وجه الله وحده في عمله، ويجتنب الرياء والسمعة. وأما معنى التوحيد فهو إفراد الله بالعبادة، فلا يُدعى معه غيره، ولا يُستغاث بغيره، ولا يُذبح لغيره، ولا يُنذر لغيره.",
+            verificationStatus: "placeholder",
+            source: { book: "فتح المجيد", volume: "١", page: "٥" }
+          },
+          fatawa: [
+            {
+              quote: "[نص توضيحي — يُراجع الأصل المطبوع] سئل الشيخ عن العمل لغير الله هل يضر التوحيد؟ فأجاب: العمل لغير الله كالرياء يفسد العمل ويُبطل الثواب، ويحتاج صاحبه إلى التوبة والإخلاص.",
+              verificationStatus: "placeholder",
+              source: { book: "مجموع الفتاوى", volume: "١", page: "١٠" },
+              concept: "الرياء"
+            }
+          ],
+          relatedTopicIds: ["t2"]
+        },
+        {
+          id: "t2",
+          slug: "shirk-khatam",
+          categories: ["الألوهية"],
+          title: "باب من الشرك دعاء غير الله",
+          order: 2,
+          kitab: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] من الشرك الأكبر دعاء الأموات والاستغاثة بهم وطلب قضاء الحوائج منهم، فهذا من جنس عبادة غير الله. وقد قال الله تعالى: {وَمَنْ أَضَلُّ مِمَّن يَدْعُو مِن دُونِ اللَّهِ مَن لَّا يَسْتَجِيبُ لَهُ إِلَى يَوْمِ الْقِيَامَةِ وَهُمْ عَن دُعَائِهِمْ غَافِلُونَ}.",
+            verificationStatus: "placeholder",
+            source: { book: "كتاب التوحيد", chapter: "باب 2", page: "١٥" }
+          },
+          fath: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] <span class='fath-quote'>قال بعض السلف: من دعا ميتًا فقد كفر.</span> وإنما المراد بالدعاء هنا دعاء العبادة، وهو سؤال ما لا يقدر عليه إلا الله. فأما الدعاء بمعنى المسألة فلا يخرج عن الشرك إذا كان لغير الله على وجه العبادة.",
+            verificationStatus: "placeholder",
+            source: { book: "فتح المجيد", volume: "١", page: "١٨" }
+          },
+          fatawa: [
+            {
+              quote: "[نص توضيحي — يُراجع الأصل المطبوع] لا يجوز الاستغاثة بغير الله في الأمور التي لا يقدر عليها إلا الله، كفرج الكرب وإغاثة الملهوف، فهذا من الشرك الأكبر.",
+              verificationStatus: "placeholder",
+              source: { book: "مجموع الفتاوى", volume: "١", page: "٢٥" },
+              concept: "الاستغاثة"
+            }
+          ],
+          relatedTopicIds: ["t1"]
+        },
+        {
+          id: "t3",
+          slug: "rububiyya-ma",
+          categories: ["الربوبية"],
+          title: "باب ما جاء في الربوبية",
+          order: 3,
+          kitab: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] الربوبية هي توحيد الله تعالى في أفعاله، كخلق الخلق ورزقهم وإحياءهم وإماتهم، ونفعهم وضهم، وتسخير الكون له وحده. ومن شهد أن الله هو الخالق الرازق المدبر كان قد أقر بالربوبية، لكن هذا لا يكفي في التوحيد حتى يوحده بالعبادة.",
+            verificationStatus: "placeholder",
+            source: { book: "كتاب التوحيد", chapter: "باب 3", page: "٢٥" }
+          },
+          fath: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] قد أقر المشركون بالربوبية لكنهم أشركوا في الألوهية، ولهذا قال الله تعالى: {قُلْ مَن يَرْزُقُكُم مِّنَ السَّمَاءِ وَالْأَرْضِ أَمَّن يَمْلِكُ السَّمْعَ وَالْأَبْصَارَ وَمَن يُخْرِجُ الْحَيَّ مِنَ الْمَيِّتِ وَيُخْرِجُ الْمَيِّتَ مِنَ الْحَيِّ وَمَن يُدَبِّرُ الْأَمْرَ فَسَيَقُولُونَ اللَّهُ فَقُلْ أَفَلَا تَتَّقُونَ}.",
+            verificationStatus: "placeholder",
+            source: { book: "فتح المجيد", volume: "١", page: "٣٠" }
+          },
+          fatawa: [
+            {
+              quote: "[نص توضيحي — يُراجع الأصل المطبوع] الإقرار بالربوبية وحدها لا يدخل في الإسلام، بل يجب إفراد الله بالعبادة هو وأهل بيته.",
+              verificationStatus: "placeholder",
+              source: { book: "مجموع الفتاوى", volume: "١", page: "٤٠" },
+              concept: "الربوبية والألوهية"
+            }
+          ],
+          relatedTopicIds: ["t1"]
+        },
+        {
+          id: "t4",
+          slug: "nifaq-kufr",
+          categories: ["الألوهية"],
+          title: "باب نواقض التوحيد",
+          order: 4,
+          kitab: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] نواقض التوحيد عشرة: الشرك بالله، من جعل مع الله نداً، من لم يكفر المشركين، من اعتقد طرق الكفار أحسن من طرق النبي، من أبغض شيئًا مما جاء به الرسول، من استهزأ بشيء من دين الرسول، السحر، موالاة المشركين، الاعتقاد أن بعض الناس يسعهم الخروج عن شريعة محمد، اليأس من رحمة الله، والأمن من مكر الله.",
+            verificationStatus: "placeholder",
+            source: { book: "كتاب التوحيد", chapter: "باب 4", page: "٤٠" }
+          },
+          fath: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] هذه النواقض كلها تخرج من الملة، فواجب على المسلم أن يحذرها ويعلمها ليحفظ توحيده. ومن وقع في شيء منها فعليه التوبة النصوح والرجوع إلى الله.",
+            verificationStatus: "placeholder",
+            source: { book: "فتح المجيد", volume: "١", page: "٤٥" }
+          },
+          fatawa: [
+            {
+              quote: "[نص توضيحي — يُراجع الأصل المطبوع] من سب الرسول صلى الله عليه وسلم كفر ولو ادعى حبه له، لأن السباب يدل على بغضه واحتقاره.",
+              verificationStatus: "placeholder",
+              source: { book: "مجموع الفتاوى", volume: "٣", page: "٢٦٨" },
+              concept: "نواقض التوحيد"
+            }
+          ],
+          relatedTopicIds: ["t2"]
+        },
+        {
+          id: "t5",
+          slug: "taqwa",
+          categories: ["الربوبية"],
+          title: "باب فضل التوحيد وترك المعصية",
+          order: 5,
+          kitab: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] التوحيد يثمر الأخلاق الكريمة ويقوي القلب ويُذهب الهم والغم. ومن آثر محبة الله على محبة غيره، وأخلص له العمل، نال من القرب ما لا ينال بغيره. والتقوى هي الإتيان بما أمر الله وترك ما نهى عنه مع الخوف والرجاء.",
+            verificationStatus: "placeholder",
+            source: { book: "كتاب التوحيد", chapter: "باب 5", page: "٥٥" }
+          },
+          fath: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] قال النبي صلى الله عليه وسلم: «من قال لا إله إلا الله مخلصًا دخل الجنة». والإخلاص هنا هو النية الصادقة والاعتقاد الحق والعمل على مقتضاه.",
+            verificationStatus: "placeholder",
+            source: { book: "فتح المجيد", volume: "١", page: "٦٠" }
+          },
+          fatawa: [
+            {
+              quote: "[نص توضيحي — يُراجع الأصل المطبوع] التوبة تجب من كل ذنب، والتوحيد هو رأس الأمر، فمن تاب إلى الله وأناب إليه قبل الله توبته وأصلح حاله.",
+              verificationStatus: "placeholder",
+              source: { book: "مجموع الفتاوى", volume: "١", page: "٩٠" },
+              concept: "التوبة والتوحيد"
+            }
+          ],
+          relatedTopicIds: ["t1", "t3"]
+        },
+        {
+          id: "t6",
+          slug: "dua-ibadah",
+          categories: ["الألوهية", "الربوبية"],
+          title: "باب الدعاء هو العبادة",
+          order: 6,
+          kitab: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] الدعاء هو العبادة، كما قال النبي صلى الله عليه وسلم: «الدعاء هو العبادة». فالدعاء سؤالك الله وحده ما تحتاجه من أمور الدنيا والآخرة، والتذلل له، والافتقار إليه، وإظهار العجز بين يديه. ومن دعا غير الله فقد أشرك في العبادة.",
+            verificationStatus: "placeholder",
+            source: { book: "كتاب التوحيد", chapter: "باب 6", page: "٦٥" }
+          },
+          fath: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] <span class='fath-quote'>قال الله تعالى: {وَقَالَ رَبُّكُمُ ادْعُونِي أَسْتَجِبْ لَكُمْ إِنَّ الَّذِينَ يَسْتَكْبِرُونَ عَنْ عِبَادَتِي سَيَدْخُلُونَ جَهَنَّمَ دَاخِرِينَ}</span>. هذا يدل على أن الدعاء عبادة، فمن دعا غير الله فقد ترك عبادة ربه إلى عبادة غيره.",
+            verificationStatus: "placeholder",
+            source: { book: "فتح المجيد", volume: "١", page: "٧٠" }
+          },
+          fatawa: [
+            {
+              quote: "[نص توضيحي — يُراجع الأصل المطبوع] الدعاء يكون لله وحده، لا للأولياء والأموات، لأنهم لا يملكون نفعًا ولا ضرًا، ولا يجيبون الدعاء.",
+              verificationStatus: "placeholder",
+              source: { book: "مجموع الفتاوى", volume: "١", page: "١٠٥" },
+              concept: "الدعاء"
+            }
+          ],
+          relatedTopicIds: ["t2", "t3"]
+        },
+        {
+          id: "t7",
+          slug: "sawab-tawhid",
+          categories: ["الربوبية"],
+          title: "باب ثواب من وحد الله",
+          order: 7,
+          kitab: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] من وحد الله وأخلص له الدين، غفر الله له ذنوبه جميعًا، وأدخله الجنة، ونجاه من النار. قال النبي صلى الله عليه وسلم: «من قال لا إله إلا الله وحده لا شريك له، له الملك وله الحمد، وهو على كل شيء قدير، في يوم مائة مرة، كانت له عدل عشر رقاب، وكتبت له مائة حسنة، ومحيت عنه مائة سيئة، وكانت له حرزًا من الشيطان يومه ذلك حتى يمسي، ولم يأت أحد بأفضل مما جاء به إلا رجل عمل أكثر منه».",
+            verificationStatus: "placeholder",
+            source: { book: "كتاب التوحيد", chapter: "باب 7", page: "٧٥" }
+          },
+          fath: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] هذا الثواب العظيم يدل على عظم فضل كلمة التوحيد، وشرف من نطق بها مخلصًا بقلبه ولسانه.",
+            verificationStatus: "placeholder",
+            source: { book: "فتح المجيد", volume: "١", page: "٨٠" }
+          },
+          fatawa: [
+            {
+              quote: "[نص توضيحي — يُراجع الأصل المطبوع] من مات على التوحيد دخل الجنة، ومن مات على الشرك دخل النار، وهذا هو مقياس الفصل بين أهل الجنة وأهل النار.",
+              verificationStatus: "placeholder",
+              source: { book: "مجموع الفتاوى", volume: "٣", page: "٣٥٥" },
+              concept: "ثمرات التوحيد"
+            }
+          ],
+          relatedTopicIds: ["t1", "t5"]
+        },
+        {
+          id: "t8",
+          slug: "kufr-tark",
+          categories: ["الألوهية"],
+          title: "باب ترك التوحيد إلى الشرك",
+          order: 8,
+          kitab: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] قد يترك بعض الناس التوحيد إلى الشرك بترك الإخلاص، أو بالرياء، أو بالعمل لغير الله، أو باتباع البدع التي تؤدي إلى الشرك. فواجب على المسلم أن يحافظ على توحيده، ويجتهد في إخلاص عمله لله، ويبتعد عن كل ما يشوب التوحيد.",
+            verificationStatus: "placeholder",
+            source: { book: "كتاب التوحيد", chapter: "باب 8", page: "٨٥" }
+          },
+          fath: {
+            text: "[نص توضيحي — يُراجع الأصل المطبوع] الرياء شرك أصغر، وقد حذّر منه النبي صلى الله عليه وسلم أشد التحذير، فقال: «إن أخوف ما أخاف عليكم الشرك الأصغر: الرياء»، ثم بين أن العمل لغير الله ينقص الثواب ويُعرض صاحبه للحرمان.",
+            verificationStatus: "placeholder",
+            source: { book: "فتح المجيد", volume: "١", page: "٩٠" }
+          },
+          fatawa: [
+            {
+              quote: "[نص توضيحي — يُراجع الأصل المطبوع] من عمل عملاً يريد به الناس فقد أشرك، وعليه أن يتوب ويُخلص النية لله وحده.",
+              verificationStatus: "placeholder",
+              source: { book: "مجموع الفتاوى", volume: "١", page: "١٢٠" },
+              concept: "الرياء والشرك الأصغر"
+            }
+          ],
+          relatedTopicIds: ["t1", "t4"]
+        }
+      ]
+    };
+
+    // Storage
+    let storage = JSON.parse(localStorage.getItem('mirqat_tawhid_v1') || '{}');
+    if (!storage.fontScale) storage.fontScale = 22;
+    if (!storage.lineHeight) storage.lineHeight = 'مريح';
+    if (!storage.tashkeel) storage.tashkeel = false;
+    if (!storage.expandedNodes) storage.expandedNodes = [];
+    if (!storage.bookmarks) storage.bookmarks = [];
+    if (!storage.notes) storage.notes = {};
+    if (!storage.pinned) storage.pinned = [];
+
+    // Arabic normalization
+    function normalizeArabic(text) {
+      return text
+        .replace(/[\u064B-\u065F\u0670]/g, '')
+        .replace(/\u0640/g, '')
+        .replace(/[أإآٱ]/g, 'ا')
+        .replace(/ى/g, 'ي')
+        .replace(/ة/g, 'ه')
+        .replace(/ؤ/g, 'و')
+        .replace(/ئ/g, 'ي');
+    }
+
+    // Save storage
+    function saveStorage() {
+      localStorage.setItem('mirqat_tawhid_v1', JSON.stringify(storage));
+    }
+
+    // Build sidebar tree
+    function buildSidebar() {
+      const tree = document.getElementById('sidebarTree');
+      const mobileTree = document.getElementById('mobileSidebarTree');
+      tree.innerHTML = '';
+      mobileTree.innerHTML = '';
+
+      const rububiyya = DB.topics.filter(t => t.categories.includes('الربوبية'));
+      const aluhiyya = DB.topics.filter(t => t.categories.includes('الألوهية'));
+
+      // الربوبية
+      const rubDiv = document.createElement('div');
+      rubDiv.innerHTML = `
+        <button class="w-full text-right p-2 font-bold text-accent focus-ring" onclick="toggleGroup('rub')">▼ الربوبية</button>
+        <div id="rub" class="mr-4 space-y-1"></div>
+      `;
+      tree.appendChild(rubDiv);
+      mobileTree.appendChild(rubDiv.cloneNode(true));
+
+      rububiyya.forEach(t => {
+        const node = document.createElement('button');
+        node.className = 'tree-node w-full text-right p-2 text-sm focus-ring rounded hover:bg-accent-soft';
+        node.textContent = t.title;
+        node.onclick = () => loadTopic(t.id);
+        document.querySelector('#rub').appendChild(node);
+      });
+
+      // الألوهية
+      const uluDiv = document.createElement('div');
+      uluDiv.innerHTML = `
+        <button class="w-full text-right p-2 font-bold text-accent focus-ring" onclick="toggleGroup('ulu')">▼ الألوهية</button>
+        <div id="ulu" class="mr-4 space-y-1"></div>
+      `;
+      tree.appendChild(uluDiv);
+      mobileTree.appendChild(uluDiv.cloneNode(true));
+
+      aluhiyya.forEach(t => {
+        const node = document.createElement('button');
+        node.className = 'tree-node w-full text-right p-2 text-sm focus-ring rounded hover:bg-accent-soft';
+        node.textContent = t.title;
+        node.onclick = () => loadTopic(t.id);
+        document.querySelector('#ulu').appendChild(node);
+      });
+    }
+
+    function toggleGroup(id) {
+      const el = document.getElementById(id);
+      if (el.style.display === 'none') {
+        el.style.display = 'block';
+      } else {
+        el.style.display = 'none';
+      }
+    }
+
+    // Load topic
+    function loadTopic(topicId) {
+      const topic = DB.topics.find(t => t.id === topicId);
+      if (!topic) return;
+
+      document.querySelectorAll('.tree-node').forEach(n => n.classList.remove('active'));
+      // Highlight active (simplified)
+      const activeNodes = document.querySelectorAll('.tree-node');
+      for (let n of activeNodes) {
+        if (n.textContent === topic.title) {
+          n.classList.add('active');
+        }
+      }
+
+      // Update title
+      document.getElementById('topicTitle').textContent = topic.title;
+      document.getElementById('topicTitlePin').textContent = topic.title;
+
+      // Categories
+      const catDiv = document.getElementById('topicCategories');
+      catDiv.innerHTML = topic.categories.map(c => `<span class="px-2 py-1 bg-accent-soft text-accent rounded text-sm">${c}</span>`).join('');
+
+      // Matn
+      const matnDiv = document.getElementById('matnContent');
+      const matnDivPin = document.getElementById('matnContentPin');
+      matnDiv.innerHTML = renderText(topic.kitab);
+      matnDivPin.innerHTML = renderText(topic.kitab);
+
+      // Sharh
+      const sharhDiv = document.getElementById('sharhContent');
+      const sharhDivPin = document.getElementById('sharhContentPin');
+      sharhDiv.innerHTML = renderText(topic.fath, true);
+      sharhDivPin.innerHTML = renderText(topic.fath, true);
+
+      // Fatawa
+      const fatawaDiv = document.getElementById('fatawaContent');
+      const fatawaDivPin = document.getElementById('fatawaContentPin');
+      fatawaDiv.innerHTML = topic.fatawa.map(f => `
+        <div class="fatawa-card p-4 bg-surface rounded-lg border border-divider">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="bg-warn/10 text-warn px-2 py-1 rounded text-xs">مجموع الفتاوى</span>
+            ${f.verificationStatus === 'placeholder' ? '<span class="badge-unverified">غير مُدقّق</span>' : ''}
+          </div>
+          <div class="fatawa-text">${renderPlaceholder(f.quote)}</div>
+          <div class="text-xs text-muted mt-2">${f.source.book} ${f.source.volume} ص ${f.source.page} - ${f.concept}</div>
+        </div>
+      `).join('');
+      fatawaDivPin.innerHTML = topic.fatawa.map(f => `
+        <div class="fatawa-card p-2 bg-surface rounded border border-divider mb-2">
+          <div class="text-xs mb-1">${renderPlaceholder(f.quote).substring(0, 100)}...</div>
+        </div>
+      `).join('');
+
+      // Notes
+      document.getElementById('notesTextarea').value = storage.notes[topicId] || '';
+
+      storage.lastTopicId = topicId;
+      saveStorage();
+    }
+
+    function renderText(field, isSharh = false) {
+      let text = renderPlaceholder(field.text);
+      if (isSharh) {
+        return `<div class="p-4">${text}</div>`;
+      }
+      return text;
+    }
+
+    function renderPlaceholder(text) {
+      if (text.includes('[نص توضيحي')) {
+        return text.replace('[نص توضيحي — يُراجع الأصل المطبوع] ', '') + ' <span class="badge-unverified">غير مُدقّق</span>';
+      }
+      return text;
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      buildSidebar();
+      
+      // Banner
+      document.getElementById('dismissBanner').onclick = () => {
+        document.getElementById('verificationBanner').style.display = 'none';
+      };
+
+      // Font slider
+      document.getElementById('fontSlider').oninput = (e) => {
+        document.documentElement.style.setProperty('--font-scale', e.target.value + 'px');
+        document.getElementById('fontSizeLabel').textContent = e.target.value + 'px';
+        storage.fontScale = e.target.value;
+        saveStorage();
+      };
+
+      // Line height
+      document.getElementById('lineHeightBtn').onclick = () => {
+        if (document.body.classList.contains('line-compressed')) {
+          document.body.classList.remove('line-compressed');
+          document.body.classList.add('line-relaxed');
+          document.getElementById('lineHeightBtn').textContent = 'مريح';
+          storage.lineHeight = 'مريح';
+        } else {
+          document.body.classList.remove('line-relaxed');
+          document.body.classList.add('line-compressed');
+          document.getElementById('lineHeightBtn').textContent = 'مضغوط';
+          storage.lineHeight = 'مضغوط';
+        }
+        saveStorage();
+      };
+
+      // Notes
+      document.getElementById('notesTextarea').oninput = (e) => {
+        if (storage.lastTopicId) {
+          storage.notes[storage.lastTopicId] = e.target.value;
+          saveStorage();
+          const saved = document.getElementById('notesSaved');
+          saved.classList.remove('hidden');
+          setTimeout(() => saved.classList.add('hidden'), 1000);
+        }
+      };
+
+      // Mobile menu
+      document.getElementById('mobileMenuBtn').onclick = () => {
+        document.getElementById('mobileDrawer').classList.add('open');
+        document.getElementById('mobileDrawerOverlay').classList.remove('hidden');
+      };
+      document.getElementById('closeDrawer').onclick = () => {
+        document.getElementById('mobileDrawer').classList.remove('open');
+        document.getElementById('mobileDrawerOverlay').classList.add('hidden');
+      };
+      document.getElementById('mobileDrawerOverlay').onclick = () => {
+        document.getElementById('mobileDrawer').classList.remove('open');
+        document.getElementById('mobileDrawerOverlay').classList.add('hidden');
+      };
+
+      // Tabs
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.onclick = () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          // Simplified tab switching
+        };
+      });
+
+      // Pin
+      document.getElementById('pinBtn').onclick = () => {
+        document.getElementById('normalLayout').classList.toggle('hidden');
+        document.getElementById('pinLayout').classList.toggle('hidden');
+      };
+
+      // Load first topic
+      if (DB.topics.length > 0) {
+        loadTopic(DB.topics[0].id);
+      }
+
+      // Apply saved settings
+      document.documentElement.style.setProperty('--font-scale', storage.fontScale + 'px');
+      document.getElementById('fontSlider').value = storage.fontScale;
+      document.getElementById('fontSizeLabel').textContent = storage.fontScale + 'px';
+      if (storage.lineHeight === 'مضغوط') {
+        document.body.classList.add('line-compressed');
+        document.getElementById('lineHeightBtn').textContent = 'مضغوط';
+      } else {
+        document.body.classList.add('line-relaxed');
+        document.getElementById('lineHeightBtn').textContent = 'مريح';
+      }
+    });
+  </script>
+</body>
+</html>
