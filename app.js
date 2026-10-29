@@ -584,48 +584,30 @@ document.addEventListener('error', function(e){
 // Wikimedia thumbnail loader
 function loadWikiThumb(img, ch){
   try {
-    if (!img) return;
-    if (!ch) { img.src = './icon.svg'; img.onerror = null; return; }
+    if (!img || !ch) return;
     var latin = (ch.latin || '').replace(/\([^)]*\)/g, '').replace(/^\s+|\s+$/g, '');
-    img.onerror = function(){ this.src = './icon.svg'; this.onerror = null; };
+    img.crossOrigin = 'anonymous';
+    img.referrerPolicy = 'no-referrer';
+    img.onerror = function(){ this.onerror = null; this.src = './icon.svg'; };
     if (window.WIKI_IMG_MAP && window.WIKI_IMG_MAP[latin]){
       img.src = window.WIKI_IMG_MAP[latin];
       return;
     }
-    var done = false;
-    function setSrc(u){
-      if (done || !u) return false;
-      done = true;
-      img.src = u.replace('/330px-', '/800px-').replace('/500px-', '/800px-');
-      return true;
-    }
     function tryEn(){
-      fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(latin), {cache:'no-store'}).then(function(r){return r.json();}).then(function(j){
-        var t = j && (j.thumbnail && j.thumbnail.source || j.originalimage && j.originalimage.source);
-        if (!setSrc(t)) tryFr();
+      fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(latin)).then(function(r){return r.json();}).then(function(j){
+        var t = j && (j.originalimage && j.originalimage.source || j.thumbnail && j.thumbnail.source);
+        if (t){ img.src = t; return; }
+        throw 0;
       }).catch(tryFr);
     }
     function tryFr(){
-      fetch('https://fr.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(latin), {cache:'no-store'}).then(function(r){return r.json();}).then(function(j){
-        var t = j && (j.thumbnail && j.thumbnail.source || j.originalimage && j.originalimage.source);
-        if (!setSrc(t)) tryCommons();
-      }).catch(tryCommons);
-    }
-    function tryCommons(){
-      var l1 = latin.replace(/\s+/g, '_');
-      fetch('https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&prop=imageinfo&iiprop=url|thumbnailurl&iiurlwidth=800&titles=' + encodeURIComponent('File:' + l1 + '.jpg'), {cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
-        var pages = d && d.query && d.query.pages || {};
-        for (var k in pages){
-          if (k==='-1') continue;
-          var p = pages[k];
-          if (p.imageinfo && p.imageinfo[0]){
-            if (setSrc(p.imageinfo[0].thumburl || p.imageinfo[0].url)) return;
-          }
-        }
-        img.src = './icon.svg';
+      fetch('https://fr.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(latin)).then(function(r){return r.json();}).then(function(j){
+        var t = j && (j.originalimage && j.originalimage.source || j.thumbnail && j.thumbnail.source);
+        if (t){ img.src = t; return; }
+        throw 0;
       }).catch(function(){ img.src = './icon.svg'; });
     }
     tryEn();
-  } catch(e){}
+  } catch(e){ img.src = './icon.svg'; }
 }
 
