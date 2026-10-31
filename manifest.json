@@ -1,1 +1,19 @@
-404: Not Found
+{
+  "name": "المعشبة المغربية — موسوعة النباتات الطبية في المغرب",
+  "short_name": "المعشبة المغربية",
+  "description": "المعشبة المغربية: موسوعة النباتات الطبية في المغرب، 150 مدخلاً موسوعياً، بحث فوري بلون أخضر، ويعمل دون اتصال.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#16130e",
+  "theme_color": "#1f5c46",
+  "categories": ["books", "education", "health"],
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
