@@ -192,12 +192,14 @@ function renderReader(id) {
   const isRef = /تُراجع البطاقة رقم/.test(ch.content || '');
   const note = isRef ? '<div class="ref-note">📌 بطاقة تعريف بالاسم المحلي — يُرجى مراجعة البطاقة الأصلية للاستعمالات الكاملة.</div>' : '';
   const body = String(ch.content || '').split('\n').map(p => '<p>' + highlight(p, nq).html + '</p>').join('');
+  const credit = ch.imageSource
+    ? '📷 ' + esc(ch.imageCredit || 'Wikimedia Commons') +
+      (ch.imageLicense ? ' · <a href="' + esc(ch.imageLicenseUrl || '#') + '" target="_blank" rel="noopener">' + esc(ch.imageLicense) + '</a>' : '') +
+      ' · <a href="' + esc(ch.imageSource) + '" target="_blank" rel="noopener">ويكيميديا كومنز</a>'
+    : '';
   const photo = '<figure class="plant-photo">' +
         '<img class="plant-img" data-latin="' + esc(ch.latin||'') + '" src="' + esc(thumbUrlFor(ch)) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" referrerpolicy="no-referrer" loading="lazy" decoding="async" onerror="imgFail(this)" />' +
-        '<figcaption>📷 ' + esc(ch.imageCredit || 'Wikimedia Commons') +
-          (ch.imageLicense ? ' · <a href="' + esc(ch.imageLicenseUrl || '#') + '" target="_blank" rel="noopener">' + esc(ch.imageLicense) + '</a>' : '') +
-          ' · <a href="' + esc(ch.imageSource || '#') + '" target="_blank" rel="noopener">ويكيميديا كومنز</a>' +
-        '</figcaption>' +
+        (credit ? '<figcaption>' + credit + '</figcaption>' : '') +
       '</figure>';
 
 
@@ -595,9 +597,9 @@ loadImageManifest().finally(function () { init(); initOffline(); });
 
 
 document.addEventListener('error', function(e){
-  if(e.target && e.target.tagName==='IMG' && !e.target.classList.contains('plant-img') && !/icon\.svg$/.test(e.target.src)){
+  if(e.target && e.target.tagName==='IMG' && !e.target.classList.contains('plant-img') && !/intro\.jpg$/.test(e.target.src)){
     e.target.onerror=null;
-    e.target.src='./icon.svg';
+    e.target.src='./intro.jpg';
   }
 }, true);
 
@@ -614,8 +616,9 @@ function commonsThumbUrl(src){
 
 
 function thumbUrlFor(ch) {
-  if (!ch) return './icon.svg';
-  return IMG_BY_ID[ch.id] || commonsThumbUrl(ch.imageSource) || './icon.svg';
+  if (!ch) return './intro.jpg';
+  if (ch.id === 'intro') return './intro.jpg';
+  return IMG_BY_ID[ch.id] || commonsThumbUrl(ch.imageSource) || './intro.jpg';
 }
 
 
@@ -817,7 +820,7 @@ function downloadAllImages() {
 
 
 function imgFail(img){
-  if (!img || img.dataset.fb) { if (img) { img.onerror = null; img.src = './icon.svg'; } return; }
+  if (!img || img.dataset.fb) { if (img) { img.onerror = null; img.src = './intro.jpg'; } return; }
   img.dataset.fb = '1';
   loadWikiThumb(img, {});
 }
@@ -901,10 +904,10 @@ function loadWikiThumb(img, ch){
   try {
     if (!img || img.dataset.wikiLoaded) return;
     var names = latinCandidates((img.getAttribute('data-latin') || (ch && ch.latin) || ''));
-    if (!names.length) { img.src = './icon.svg'; return; }
+    if (!names.length) { img.src = './intro.jpg'; return; }
     img.dataset.wikiLoaded = '1';
     img.referrerPolicy = 'no-referrer';
-    img.onerror = function(){ this.onerror = null; this.src = './icon.svg'; };
+    img.onerror = function(){ this.onerror = null; this.src = './intro.jpg'; };
     // instant path: cached URL
     for (var i = 0; i < names.length; i++) {
       var c = wikiCache[names[i]];
