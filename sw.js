@@ -1,5 +1,5 @@
 // Service worker hors-ligne : coquille + données + polices + toutes les images (cache dédié).
-const CACHE = 'a3chab-v1.4.0';
+const CACHE = 'a3chab-v1.4.1';
 const IMG_CACHE = 'a3chab-images-v1';
 const CORE = [
   './',
