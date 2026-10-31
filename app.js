@@ -4,13 +4,16 @@ const app = document.getElementById('app');
 const BOOK = window.BOOK_DATA || [];
 const chapters = Array.isArray(BOOK) ? BOOK : (BOOK.entries || []);
 
+
 let flat = null;
 let currentQuery = '';
 let occMarks = [];
 let occCur = -1;
 
+
 /* ---------- Arabic text helpers ---------- */
 const DIAC = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/;
+
 
 function normChar(c) {
   if (c === 'إ' || c === 'أ' || c === 'آ' || c === 'ٱ') return 'ا';
@@ -21,6 +24,7 @@ function normChar(c) {
   return c.toLowerCase();
 }
 
+
 function normalize(s) {
   let out = '';
   for (let i = 0; i < s.length; i++) {
@@ -30,6 +34,7 @@ function normalize(s) {
   }
   return out;
 }
+
 
 function buildNormMap(text) {
   const out = [];
@@ -43,9 +48,11 @@ function buildNormMap(text) {
   return { out: out.join(''), map };
 }
 
+
 function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
+
 
 function highlight(text, nq) {
   if (!nq) return { html: esc(text), count: 0 };
@@ -66,6 +73,7 @@ function highlight(text, nq) {
   return { html: segs.map(x => (x.m ? '<mark class="hl">' + esc(x.t) + '</mark>' : esc(x.t))).join(''), count };
 }
 
+
 function snippet(text, nq) {
   const { out, map } = buildNormMap(text);
   const idx = out.indexOf(nq);
@@ -76,6 +84,7 @@ function snippet(text, nq) {
   const { html } = highlight(text.slice(a, b), nq);
   return (a > 0 ? '… ' : '') + html + (b < text.length ? ' …' : '');
 }
+
 
 /* ---------- theme + font ---------- */
 function setupTheme() {
@@ -91,6 +100,7 @@ function setupTheme() {
     try { localStorage.setItem('a3chab_theme', next); } catch (e) {}
   });
 }
+
 
 let fontSize = 1;
 try { fontSize = parseFloat(localStorage.getItem('a3chab_font')) || 1; } catch (e) {}
@@ -115,6 +125,7 @@ function setupFontControls() {
 }
 applyFontSize();
 
+
 /* ---------- network indicator ---------- */
 function setupNetwork() {
   const el = document.getElementById('netStatus');
@@ -131,6 +142,7 @@ function setupNetwork() {
   window.addEventListener('offline', update);
 }
 
+
 /* ---------- data ---------- */
 function metaOf(ch) {
   const parts = [];
@@ -140,6 +152,7 @@ function metaOf(ch) {
   if (ch.french) parts.push(['الفرنسية', ch.french]);
   return parts;
 }
+
 
 function buildFlat() {
   if (flat) return flat;
@@ -155,12 +168,14 @@ function buildFlat() {
   return flat;
 }
 
+
 /* ---------- reader ---------- */
 function renderReader(id) {
   const idx = chapters.findIndex(c => c.id === id);
   if (idx === -1) return renderHome();
   const ch = chapters[idx];
   try { localStorage.setItem('a3chab_last', String(id)); } catch (e) {}
+
 
   const nq = normalize(currentQuery);
   const title = highlight(ch.title, nq).html;
@@ -172,18 +187,20 @@ function renderReader(id) {
   const note = isRef ? '<div class="ref-note">📌 بطاقة تعريف بالاسم المحلي — يُرجى مراجعة البطاقة الأصلية للاستعمالات الكاملة.</div>' : '';
   const body = String(ch.content || '').split('\n').map(p => '<p>' + highlight(p, nq).html + '</p>').join('');
   const photo = '<figure class="plant-photo">' +
-        '<img class="plant-img" data-latin="' + esc(ch.latin||'') + '" src="' + (ch.image ? './' + esc(ch.image) : './icon.svg') + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" loading="lazy" decoding="async" onerror="this.onerror=null; if(this.dataset.fbk){ this.src=\'./icon.svg\'; }else{this.dataset.fbk=\'1\';}" />' +
+        '<img class="plant-img" data-latin="' + esc(ch.latin||'') + '" src="' + esc(commonsThumbUrl(ch.imageSource) || './icon.svg') + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" referrerpolicy="no-referrer" loading="lazy" decoding="async" onerror="imgFail(this)" />' +
         '<figcaption>📷 ' + esc(ch.imageCredit || 'Wikimedia Commons') +
           (ch.imageLicense ? ' · <a href="' + esc(ch.imageLicenseUrl || '#') + '" target="_blank" rel="noopener">' + esc(ch.imageLicense) + '</a>' : '') +
           ' · <a href="' + esc(ch.imageSource || '#') + '" target="_blank" rel="noopener">ويكيميديا كومنز</a>' +
         '</figcaption>' +
       '</figure>';
 
+
   const prev = idx > 0 ? chapters[idx - 1] : null;
   const next = idx < chapters.length - 1 ? chapters[idx + 1] : null;
   const kicker = ch.isHeader
     ? 'الموسوعة · مقدمة'
     : 'الموسوعة · المدخل ' + toArabicDigits(idx) + ' من ' + toArabicDigits(chapters.length - 1);
+
 
   app.innerHTML =
     '<div class="topnav">' + fontControlsHTML() +
@@ -213,6 +230,7 @@ function renderReader(id) {
       '<button id="nextBtn"' + (next ? '' : ' disabled') + '>التالي ←</button>' +
     '</div>';
 
+
   if (prev) document.getElementById('prevBtn').onclick = () => go('#/read/' + encodeURIComponent(prev.id));
   if (next) document.getElementById('nextBtn').onclick = () => go('#/read/' + encodeURIComponent(next.id));
   document.getElementById('homeBtn').onclick = () => go('#/');
@@ -229,6 +247,7 @@ function renderReader(id) {
     copyText(ch.title + '\n' + metaLines + (metaLines ? '\n\n' : '') + ch.content, e.currentTarget);
   };
   setupFontControls();
+
 
   const input = document.getElementById('chapSearch');
   input.oninput = debounce(() => {
@@ -249,8 +268,10 @@ function renderReader(id) {
   document.getElementById('occNext').onclick = () => goOcc(1);
   document.getElementById('occPrev').onclick = () => goOcc(-1);
 
+
   collectMarks();
 }
+
 
 function collectMarks() {
   occMarks = Array.from(document.querySelectorAll('#chapterCard mark.hl'));
@@ -280,6 +301,7 @@ function goOcc(delta) {
   paintMarks(true);
 }
 
+
 /* ---------- home / TOC / global search ---------- */
 function renderHome() {
   let resume = null;
@@ -288,7 +310,9 @@ function renderHome() {
   const resumeBtn = resumeCh
     ? '<button id="resumeBtn" type="button">↩️ متابعة القراءة — ' + esc(resumeCh.title) + '</button>' : '';
 
+
   const plants = chapters.filter(c => !c.isHeader).length;
+
 
   app.innerHTML =
     '<div class="topnav">' + fontControlsHTML() + resumeBtn +
@@ -313,7 +337,7 @@ function renderHome() {
           chapters.map((ch, i) =>
             '<button type="button" class="toc-item" data-id="' + esc(ch.id) + '">' +
               (ch.image
-                ? '<img class="toc-thumb plant-img" data-latin="' + esc(ch.latin||'') + '" src="./' + esc(ch.image) + '" alt="" loading="lazy" decoding="async" onerror="this.onerror=null; this.src=\'./icon.svg\';" />'
+                ? '<img class="toc-thumb plant-img" data-latin="' + esc(ch.latin||'') + '" src="' + esc(commonsThumbUrl(ch.imageSource) || './icon.svg') + '" alt="" referrerpolicy="no-referrer" loading="lazy" decoding="async" onerror="imgFail(this)" />'
                 : '<span class="toc-thumb placeholder" aria-hidden="true">🌿</span>') +
               '<span class="num">' + (ch.isHeader ? 'مقدمة' : toArabicDigits(i)) + '</span>' +
               '<span>' + esc(ch.title.replace(/^\d+\.\s*/, '')) + '</span>' +
@@ -321,6 +345,7 @@ function renderHome() {
         '</div>' +
       '</div>' +
     '</div>';
+
 
   setupFontControls();
   document.getElementById('homeSafetyBtn').onclick = () => go('#/safety');
@@ -332,18 +357,6 @@ function renderHome() {
   app.querySelectorAll('.toc-item').forEach(b => {
     b.onclick = () => { currentQuery = ''; go('#/read/' + encodeURIComponent(b.dataset.id)); };
   });
-  setTimeout(function(){
-    try {
-      document.querySelectorAll('.toc-item img.plant-img').forEach(function(img){
-        if (img.dataset.wikiLoaded) return;
-        var b = img.closest('.toc-item');
-        var id = b ? b.getAttribute('data-id') : '';
-        var ch = chapters.find(function(c){ return c.id === id; });
-        loadWikiThumb(img, ch || {});
-      });
-    } catch(e){}
-  }, 150);
-
   const gi = document.getElementById('globalSearch');
   const resultsEl = document.getElementById('searchResults');
   const tocWrap = document.getElementById('tocWrap');
@@ -388,6 +401,7 @@ function renderHome() {
   };
 }
 
+
 function globalSearch(nq) {
   const idx = buildFlat();
   const hits = [];
@@ -401,6 +415,7 @@ function globalSearch(nq) {
   return hits;
 }
 
+
 /* ---------- safety + sources ---------- */
 function entryTitle(id) {
   const c = chapters.find(x => x.id === id);
@@ -410,12 +425,14 @@ function entryLink(id) {
   return '<a href="#/read/' + encodeURIComponent(id) + '">' + esc(entryTitle(id)) + '</a>';
 }
 
+
 function renderSafety() {
   const toxicIds = ['defla', 'ftila', 'guelb', 'datura', 'sambouk', 'daghmouss',
     'qernoun', 'harmal', 'harmel_blanc', 'kafour', 'mkhinza', 'sena_makki',
     'arek_souss', 'chib', 'chibt', 'khayyata', 'tebbouna'];
   const toxic = toxicIds.filter(id => chapters.some(c => c.id === id))
     .map(id => entryLink(id)).join('');
+
 
   app.innerHTML =
     '<div class="topnav">' + fontControlsHTML() +
@@ -449,10 +466,12 @@ function renderSafety() {
       '<div class="safety-note"><strong>ملاحظة:</strong> هذه الصفحة إرشادية عامة، وليست بديلاً عن نشرة دواء أو استشارة مختص.</div>' +
     '</div>';
 
+
   setupFontControls();
   document.getElementById('homeBtn').onclick = () => go('#/');
   document.getElementById('sourcesBtn').onclick = () => go('#/sources');
 }
+
 
 function renderSources() {
   app.innerHTML =
@@ -491,10 +510,12 @@ function renderSources() {
       '<div class="safety-note"><strong>تنبيه:</strong> المعلومات في هذا الموقع لأغراض تعليمية، ولا تُعتبر استشارة طبية أو صيدلية.</div>' +
     '</div>';
 
+
   setupFontControls();
   document.getElementById('homeBtn').onclick = () => go('#/');
   document.getElementById('safetyBtn').onclick = () => go('#/safety');
 }
+
 
 /* ---------- misc ---------- */
 function toArabicDigits(n) {
@@ -523,6 +544,7 @@ function copyText(text, btn) {
   else fallback();
 }
 
+
 /* ---------- routing ---------- */
 function go(hash) {
   if (location.hash === hash) route();
@@ -543,18 +565,8 @@ function route() {
   else if (r.view === 'sources') renderSources();
   else renderHome();
   window.scrollTo(0, 0);
-  setTimeout(function(){
-    try {
-      document.querySelectorAll('img.plant-img').forEach(function(img, idx){
-        var alt = img.getAttribute('alt') || '';
-        var ch = null;
-        for (var i=0;i<chapters.length;i++){ if (alt.indexOf(chapters[i].title) >=0 || (chapters[i].latin && alt.indexOf(chapters[i].latin)>=0)) { ch = chapters[i]; break; } }
-        if (!ch && chapters[idx+1]) ch = chapters[idx+1];
-        loadWikiThumb(img, ch || {});
-      });
-    } catch(e){}
-  }, 50);
 }
+
 
 function renderError() {
   app.innerHTML =
@@ -562,6 +574,7 @@ function renderError() {
       '<p class="empty">⚠️ تعذّر تحميل بيانات الموسوعة. أعد تحميل الصفحة.</p>' +
     '</div>';
 }
+
 
 function init() {
   setupTheme();
@@ -573,41 +586,120 @@ function init() {
 init();
 
 
+
+
 document.addEventListener('error', function(e){
-  if(e.target && e.target.tagName==='IMG'){
+  if(e.target && e.target.tagName==='IMG' && !e.target.classList.contains('plant-img') && !/icon\.svg$/.test(e.target.src)){
     e.target.onerror=null;
     e.target.src='./icon.svg';
   }
 }, true);
 
 
-// Wikimedia thumbnail loader
-function loadWikiThumb(img, ch){
-  try {
-    if (!img || !ch) return;
-    var latin = (ch.latin || '').replace(/\([^)]*\)/g, '').replace(/^\s+|\s+$/g, '');
-    img.crossOrigin = 'anonymous';
-    img.referrerPolicy = 'no-referrer';
-    img.onerror = function(){ this.onerror = null; this.src = './icon.svg'; };
-    if (window.WIKI_IMG_MAP && window.WIKI_IMG_MAP[latin]){
-      img.src = window.WIKI_IMG_MAP[latin];
-      return;
-    }
-    function tryEn(){
-      fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(latin)).then(function(r){return r.json();}).then(function(j){
-        var t = j && (j.originalimage && j.originalimage.source || j.thumbnail && j.thumbnail.source);
-        if (t){ img.src = t; return; }
-        throw 0;
-      }).catch(tryFr);
-    }
-    function tryFr(){
-      fetch('https://fr.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(latin)).then(function(r){return r.json();}).then(function(j){
-        var t = j && (j.originalimage && j.originalimage.source || j.thumbnail && j.thumbnail.source);
-        if (t){ img.src = t; return; }
-        throw 0;
-      }).catch(function(){ img.src = './icon.svg'; });
-    }
-    tryEn();
-  } catch(e){ img.src = './icon.svg'; }
+
+
+// Exact Commons file from the entry's own imageSource (same file the credit line points to)
+function commonsThumbUrl(src){
+  var m = String(src || '').match(/commons\.wikimedia\.org\/wiki\/(?:File|Fichier)(?::|%3A)(.+?)(?:[?#].*)?$/i);
+  if (!m) return '';
+  var name; try { name = decodeURIComponent(m[1]); } catch (e) { name = m[1]; }
+  return 'https://commons.wikimedia.org/wiki/Special:FilePath/' + encodeURIComponent(name.replace(/ /g, '_')) + '?width=640';
+}
+function imgFail(img){
+  if (!img || img.dataset.fb) { if (img) { img.onerror = null; img.src = './icon.svg'; } return; }
+  img.dataset.fb = '1';
+  loadWikiThumb(img, {});
 }
 
+
+// Wikimedia thumbnail loader (v1.3.9)
+// Fixes: only "Genus species" is searched (authors/synonyms removed), several candidate names per entry,
+// max 4 parallel requests (Wikipedia rate-limits bursts of 150), results cached in localStorage.
+var WIKI_CACHE_KEY = 'a3chab_wikiimg_v2';
+var WIKI_MISS_TTL = 3 * 24 * 3600 * 1000;
+var wikiCache = {}, wikiQueue = [], wikiActive = 0, WIKI_MAX = 4;
+try { wikiCache = JSON.parse(localStorage.getItem(WIKI_CACHE_KEY) || '{}') || {}; } catch (e) { wikiCache = {}; }
+function saveWikiCache(){ try { localStorage.setItem(WIKI_CACHE_KEY, JSON.stringify(wikiCache)); } catch (e) {} }
+
+
+function latinCandidates(raw){
+  var out = [];
+  String(raw || '').split('/').forEach(function(part){
+    var t = part.replace(/\([^)]*\)/g, ' ').replace(/[×]/g, ' ').trim().split(/\s+/);
+    if (t.length < 2) return;
+    if (!/^[A-Z][a-z]+$/.test(t[0]) || !/^[a-z-]+$/.test(t[1])) return;
+    var name = t[0] + ' ' + t[1];
+    if (out.indexOf(name) < 0) out.push(name);
+  });
+  return out;
+}
+
+
+function wikiSummary(lang, name){
+  return fetch('https://' + lang + '.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(name.replace(/ /g, '_')) + '?redirect=true')
+    .then(function(r){
+      if (r.status === 429) { var e = new Error('rate'); e.rate = true; throw e; }
+      if (!r.ok) return null;
+      return r.json();
+    })
+    .then(function(j){
+      if (!j || j.type === 'disambiguation') return null;
+      return (j.thumbnail && j.thumbnail.source) || (j.originalimage && j.originalimage.source) || null;
+    });
+}
+
+
+function resolveWikiImage(name){
+  var c = wikiCache[name];
+  if (c && c.u) return Promise.resolve(c.u);
+  if (c && !c.u && Date.now() - c.t < WIKI_MISS_TTL) return Promise.resolve(null);
+  if (window.WIKI_IMG_MAP && window.WIKI_IMG_MAP[name]) {
+    wikiCache[name] = { u: window.WIKI_IMG_MAP[name], t: Date.now() };
+    return Promise.resolve(window.WIKI_IMG_MAP[name]);
+  }
+  return wikiSummary('en', name)
+    .then(function(u){ return u || wikiSummary('fr', name); })
+    .then(function(u){ wikiCache[name] = { u: u || '', t: Date.now() }; saveWikiCache(); return u; });
+}
+
+
+function wikiPump(){
+  while (wikiActive < WIKI_MAX && wikiQueue.length) {
+    (function(job){
+      wikiActive++;
+      var names = job.names.slice();
+      (function next(){
+        if (!names.length) { wikiActive--; wikiPump(); return; }
+        resolveWikiImage(names.shift()).then(function(u){
+          if (u) { job.img.src = u; wikiActive--; wikiPump(); }
+          else next();
+        }).catch(function(err){
+          if (err && err.rate && job.tries < 3) {
+            job.tries++; job.names = job.names.length ? job.names : [];
+            wikiActive--;
+            setTimeout(function(){ wikiQueue.push({ img: job.img, names: job.allNames, allNames: job.allNames, tries: job.tries }); wikiPump(); }, 2000 * job.tries);
+          } else { wikiActive--; wikiPump(); }
+        });
+      })();
+    })(wikiQueue.shift());
+  }
+}
+
+
+function loadWikiThumb(img, ch){
+  try {
+    if (!img || img.dataset.wikiLoaded) return;
+    var names = latinCandidates((img.getAttribute('data-latin') || (ch && ch.latin) || ''));
+    if (!names.length) { img.src = './icon.svg'; return; }
+    img.dataset.wikiLoaded = '1';
+    img.referrerPolicy = 'no-referrer';
+    img.onerror = function(){ this.onerror = null; this.src = './icon.svg'; };
+    // instant path: cached URL
+    for (var i = 0; i < names.length; i++) {
+      var c = wikiCache[names[i]];
+      if (c && c.u) { img.src = c.u; return; }
+    }
+    wikiQueue.push({ img: img, names: names, allNames: names.slice(), tries: 0 });
+    wikiPump();
+  } catch (e) {}
+}
