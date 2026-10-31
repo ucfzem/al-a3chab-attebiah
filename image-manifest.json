@@ -1,0 +1,853 @@
+{
+ "version": "1.4.0",
+ "width": 640,
+ "total": 141,
+ "items": [
+  {
+   "id": "chih",
+   "name": "1. الشيح (Armoise Herba-alba)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Artemisia_herba-alba_1.jpg/960px-Artemisia_herba-alba_1.jpg",
+   "file": "Artemisia herba-alba 1.jpg"
+  },
+  {
+   "id": "louiza",
+   "name": "2. اللويزة (Verveine Odorante)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Aloysia_citrodora_%28Verbenaceae%29%2C_hojas.jpg/960px-Aloysia_citrodora_%28Verbenaceae%29%2C_hojas.jpg",
+   "file": "Aloysia citrodora (Verbenaceae), hojas.jpg"
+  },
+  {
+   "id": "zaatar",
+   "name": "3. الزعتر الجبلي (Thym Marocain)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Thymus_maroccanus.JPG/960px-Thymus_maroccanus.JPG",
+   "file": "Thymus maroccanus.JPG"
+  },
+  {
+   "id": "flio",
+   "name": "4. فليو (Menthe Pouliot)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Mentha_Pulegium_10.jpg/960px-Mentha_Pulegium_10.jpg",
+   "file": "Mentha Pulegium 10.jpg"
+  },
+  {
+   "id": "salmia",
+   "name": "5. السالمية (Sauge Officinale)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/20260614_Salvia_officinalis_01.jpg/960px-20260614_Salvia_officinalis_01.jpg",
+   "file": "20260614 Salvia officinalis 01.jpg"
+  },
+  {
+   "id": "yazir",
+   "name": "6. اليازير / إكليل الجبل (Romarin)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Jard%C3%ADn_Bot%C3%A1nico_Olarizu_25.jpg/960px-Jard%C3%ADn_Bot%C3%A1nico_Olarizu_25.jpg",
+   "file": "Jardín Botánico Olarizu 25.jpg"
+  },
+  {
+   "id": "harmal",
+   "name": "7. الحرمل (Pégane / Harmal)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Peganum_harmala_Baikonur_04.jpg/960px-Peganum_harmala_Baikonur_04.jpg",
+   "file": "Peganum harmala Baikonur 04.jpg"
+  },
+  {
+   "id": "kamoun_soufi",
+   "name": "8. الكمون الصوفي (Ammodaucus leucotrichus)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Ammodaucus_leucotrichus_MHNT.BOT.2011.18.1.jpg/960px-Ammodaucus_leucotrichus_MHNT.BOT.2011.18.1.jpg",
+   "file": "Ammodaucus leucotrichus MHNT.BOT.2011.18.1.jpg"
+  },
+  {
+   "id": "karwiya",
+   "name": "9. الكروية (Carum carvi)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/Caraway_Carum_carvi_H5256_VI08_C.jpg/960px-Caraway_Carum_carvi_H5256_VI08_C.jpg",
+   "file": "Caraway Carum carvi H5256 VI08 C.jpg"
+  },
+  {
+   "id": "lakhzama",
+   "name": "10. الخزامى (Lavandula dentata)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Lavanda_%28Lavandula_dentata%29.jpg/960px-Lavanda_%28Lavandula_dentata%29.jpg",
+   "file": "Lavanda (Lavandula dentata).jpg"
+  },
+  {
+   "id": "tourenjane",
+   "name": "11. الترنجان (Melissa officinalis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Melissa_officinalis%2C_2020-07-11%2C_Beechview%2C_03.jpg/960px-Melissa_officinalis%2C_2020-07-11%2C_Beechview%2C_03.jpg",
+   "file": "Melissa officinalis, 2020-07-11, Beechview, 03.jpg"
+  },
+  {
+   "id": "chendgoura",
+   "name": "12. الشندقورة (Ajuga iva)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Ajuga_iva-Bugle_ivette-20150904.jpg/960px-Ajuga_iva-Bugle_ivette-20150904.jpg",
+   "file": "Ajuga iva-Bugle ivette-20150904.jpg"
+  },
+  {
+   "id": "zaiitra",
+   "name": "13. الزعيترة (Thymus satureioides)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Thymus-saturejoides_2026.jpg/960px-Thymus-saturejoides_2026.jpg",
+   "file": "Thymus-saturejoides 2026.jpg"
+  },
+  {
+   "id": "arek_souss",
+   "name": "14. عرق السوس (Glycyrrhiza glabra)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/00_0838_Frucht_der_Pflanze_%E2%80%9EEchtes_S%C3%BCssholz%E2%80%9C_%28Glycyrrhiza_glabra%29.jpg/960px-00_0838_Frucht_der_Pflanze_%E2%80%9EEchtes_S%C3%BCssholz%E2%80%9C_%28Glycyrrhiza_glabra%29.jpg",
+   "file": "00 0838 Frucht der Pflanze „Echtes Süssholz“ (Glycyrrhiza glabra).jpg"
+  },
+  {
+   "id": "lhelba",
+   "name": "15. الحلبة (Trigonella foenum-graecum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Trigonella_foenum%2C_a_lot_cultivated_in_Kottabagh._AJT_Johnsingh._P1100629.jpg/960px-Trigonella_foenum%2C_a_lot_cultivated_in_Kottabagh._AJT_Johnsingh._P1100629.jpg",
+   "file": "Trigonella foenum, a lot cultivated in Kottabagh. AJT Johnsingh. P1100629.jpg"
+  },
+  {
+   "id": "sena_makki",
+   "name": "16. السنامكي (Cassia angustifolia)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/%E7%8B%B9%E8%91%89%E7%95%AA%E7%80%89_Cassia_angustifolia_%28Cassia_senna%29_-%E9%98%BF%E5%A7%86%E6%96%AF%E7%89%B9%E4%B8%B9%E6%A4%8D%E7%89%A9%E5%9C%92_Hortus_Botanicus%2C_Amsterdam-_%2815317649936%29.jpg/960px-%E7%8B%B9%E8%91%89%E7%95%AA%E7%80%89_Cassia_angustifolia_%28Cassia_senna%29_-%E9%98%BF%E5%A7%86%E6%96%AF%E7%89%B9%E4%B8%B9%E6%A4%8D%E7%89%A9%E5%9C%92_Hortus_Botanicus%2C_Amsterdam-_%2815317649936%29.jpg",
+   "file": "狹葉番瀉 Cassia angustifolia (Cassia senna) -阿姆斯特丹植物園 Hortus Botanicus, Amsterdam- (15317649936).jpg"
+  },
+  {
+   "id": "wrak_zitoune",
+   "name": "17. ورق الزيتون (Olea europaea)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/%28MHNT%29_Olea_europaea_-_Inflorescence_and_leaves.jpg/960px-%28MHNT%29_Olea_europaea_-_Inflorescence_and_leaves.jpg",
+   "file": "(MHNT) Olea europaea - Inflorescence and leaves.jpg"
+  },
+  {
+   "id": "babounj",
+   "name": "18. البابونج (Matricaria chamomilla)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Camomille_sauvage_%28Matricaria_chamomilla%29%2C_coquelicots_%28Papaver_rhoeas%29_au_bord_d%27un_champ_d%27orge_%28Hordeum_vulgare%29.jpg/960px-Camomille_sauvage_%28Matricaria_chamomilla%29%2C_coquelicots_%28Papaver_rhoeas%29_au_bord_d%27un_champ_d%27orge_%28Hordeum_vulgare%29.jpg",
+   "file": "Camomille sauvage (Matricaria chamomilla), coquelicots (Papaver rhoeas) au bord d'un champ d'orge (Hordeum vulgare).jpg"
+  },
+  {
+   "id": "habat_baraka",
+   "name": "19. حبة البركة (Nigella sativa)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Nigella_Sativa_Seed.jpg/960px-Nigella_Sativa_Seed.jpg",
+   "file": "Nigella Sativa Seed.jpg"
+  },
+  {
+   "id": "henna",
+   "name": "20. الحناء (Lawsonia inermis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/LAWSONIA_INERMIS_LINN_fruits_Marudhani_fruits.jpg/960px-LAWSONIA_INERMIS_LINN_fruits_Marudhani_fruits.jpg",
+   "file": "LAWSONIA INERMIS LINN fruits Marudhani fruits.jpg"
+  },
+  {
+   "id": "daghmouss",
+   "name": "21. الدغموس (Euphorbia resinifera)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/Euphorbia_resinifera.jpg/960px-Euphorbia_resinifera.jpg",
+   "file": "Euphorbia resinifera.jpg"
+  },
+  {
+   "id": "herrast_lehjar",
+   "name": "22. حرّاصت الحجر (Herniaria fontanesii)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Herniaria_fontanesii_kz01.jpg/960px-Herniaria_fontanesii_kz01.jpg",
+   "file": "Herniaria fontanesii kz01.jpg"
+  },
+  {
+   "id": "drou",
+   "name": "23. الدرو (Pistacia lentiscus)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/02_2020_Greece_photo_Paolo_Villa_%28Olympia_archaeological_park_-_mastic_or_Pistacia_lentiscus%29.jpg/960px-02_2020_Greece_photo_Paolo_Villa_%28Olympia_archaeological_park_-_mastic_or_Pistacia_lentiscus%29.jpg",
+   "file": "02 2020 Greece photo Paolo Villa (Olympia archaeological park - mastic or Pistacia lentiscus).jpg"
+  },
+  {
+   "id": "sabar",
+   "name": "24. الصبار (Aloe vera)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Aloe-Vera-Sitia-Crete-Greece.jpg/960px-Aloe-Vera-Sitia-Crete-Greece.jpg",
+   "file": "Aloe-Vera-Sitia-Crete-Greece.jpg"
+  },
+  {
+   "id": "kamoun",
+   "name": "25. الكمون (Cuminum cyminum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Cuminum_cyminum-1-market-yercaud-salem-India.JPG/960px-Cuminum_cyminum-1-market-yercaud-salem-India.JPG",
+   "file": "Cuminum cyminum-1-market-yercaud-salem-India.JPG"
+  },
+  {
+   "id": "nafaa",
+   "name": "26. النافع / البسباس (Foeniculum vulgare)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Fenchel_%28Foeniculum_vulgare%29_mit_Blattl%C3%A4use_und_Marienk%C3%A4fer_Larve-1-Josef_Schlaghecken.jpg/960px-Fenchel_%28Foeniculum_vulgare%29_mit_Blattl%C3%A4use_und_Marienk%C3%A4fer_Larve-1-Josef_Schlaghecken.jpg",
+   "file": "Fenchel (Foeniculum vulgare) mit Blattläuse und Marienkäfer Larve-1-Josef Schlaghecken.jpg"
+  },
+  {
+   "id": "kebbar",
+   "name": "27. الكبار (Capparis spinosa)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Caper_bush_-_Capparis_spinosa_var_nummularia_IMG_5076.jpg/960px-Caper_bush_-_Capparis_spinosa_var_nummularia_IMG_5076.jpg",
+   "file": "Caper bush - Capparis spinosa var nummularia IMG 5076.jpg"
+  },
+  {
+   "id": "khella",
+   "name": "28. الخلة (Ammi visnaga)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Ammi_Visnaga_%28289632722%29.jpg/960px-Ammi_Visnaga_%28289632722%29.jpg",
+   "file": "Ammi Visnaga (289632722).jpg"
+  },
+  {
+   "id": "bessbas",
+   "name": "29. البسباس (Anethum graveolens)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/A_picture_I_took_in_Egypt_of_Anethum_graveolens%2Ccommonly_known_as_dill.jpg/960px-A_picture_I_took_in_Egypt_of_Anethum_graveolens%2Ccommonly_known_as_dill.jpg",
+   "file": "A picture I took in Egypt of Anethum graveolens,commonly known as dill.jpg"
+  },
+  {
+   "id": "kzber",
+   "name": "30. الكزبر (Coriandrum sativum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/%28MHNT%29_Coriandrum_sativum_-_inflorescence.jpg/960px-%28MHNT%29_Coriandrum_sativum_-_inflorescence.jpg",
+   "file": "(MHNT) Coriandrum sativum - inflorescence.jpg"
+  },
+  {
+   "id": "march",
+   "name": "31. المعدنوس (Petroselinum crispum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Perejil_%28Petroselinum_crispum%29.jpg/960px-Perejil_%28Petroselinum_crispum%29.jpg",
+   "file": "Perejil (Petroselinum crispum).jpg"
+  },
+  {
+   "id": "karfas",
+   "name": "32. الكرفس (Apium graveolens)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/2023-06-22_Apium_graveolens_%28Wild_Celery%29%2C_Elswick%2C_Northumberland_1.jpg/960px-2023-06-22_Apium_graveolens_%28Wild_Celery%29%2C_Elswick%2C_Northumberland_1.jpg",
+   "file": "2023-06-22 Apium graveolens (Wild Celery), Elswick, Northumberland 1.jpg"
+  },
+  {
+   "id": "chibt",
+   "name": "33. الشيبة (Artemisia absinthium)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Artemisia_absinthium_01.JPG/960px-Artemisia_absinthium_01.JPG",
+   "file": "Artemisia absinthium 01.JPG"
+  },
+  {
+   "id": "allal",
+   "name": "34. العلّال (Artemisia campestris)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Artemisia_campestris_Bylica_polna_2020-06-21_01.jpg/960px-Artemisia_campestris_Bylica_polna_2020-06-21_01.jpg",
+   "file": "Artemisia campestris Bylica polna 2020-06-21 01.jpg"
+  },
+  {
+   "id": "chih_khorassani",
+   "name": "35. الشيح الخراساني (اسم محلي)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Artemisia_campestris_Enfoque_2010-11-05_CampodeCalatrava.jpg/960px-Artemisia_campestris_Enfoque_2010-11-05_CampodeCalatrava.jpg",
+   "file": "Artemisia campestris Enfoque 2010-11-05 CampodeCalatrava.jpg"
+  },
+  {
+   "id": "khobiza",
+   "name": "36. الخبيزة (Malva sylvestris)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Close-up_photographs_of_Malva_sylvestris_flowers.jpg/960px-Close-up_photographs_of_Malva_sylvestris_flowers.jpg",
+   "file": "Close-up photographs of Malva sylvestris flowers.jpg"
+  },
+  {
+   "id": "beqqoula",
+   "name": "37. البقلة (Portulaca oleracea)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/A_honey_bee_over_flower_of_common_purslane_Portulaca_oleracea_01.jpg/960px-A_honey_bee_over_flower_of_common_purslane_Portulaca_oleracea_01.jpg",
+   "file": "A honey bee over flower of common purslane Portulaca oleracea 01.jpg"
+  },
+  {
+   "id": "kherchaf",
+   "name": "38. الخرشف (Cynara scolymus)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Artisjok_Cynara_scolymus._Locatie%2C_De_Kruidhof_Buitenpost_01.jpg/960px-Artisjok_Cynara_scolymus._Locatie%2C_De_Kruidhof_Buitenpost_01.jpg",
+   "file": "Artisjok Cynara scolymus. Locatie, De Kruidhof Buitenpost 01.jpg"
+  },
+  {
+   "id": "chlada",
+   "name": "39. الشلاضة (Taraxacum officinale)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Bloemknop_van_de_paardenbloem_%28Taraxacum_officinale%29_28-04-2025._%28d.j.b%29.jpg/960px-Bloemknop_van_de_paardenbloem_%28Taraxacum_officinale%29_28-04-2025._%28d.j.b%29.jpg",
+   "file": "Bloemknop van de paardenbloem (Taraxacum officinale) 28-04-2025. (d.j.b).jpg"
+  },
+  {
+   "id": "hendba",
+   "name": "40. الهندبة (Cichorium intybus)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Bloem_van_een_wilde_cichorei_%28Cichorium_intybus%29_24-06-2026._%28actm.%29_01.jpg/960px-Bloem_van_een_wilde_cichorei_%28Cichorium_intybus%29_24-06-2026._%28actm.%29_01.jpg",
+   "file": "Bloem van een wilde cichorei (Cichorium intybus) 24-06-2026. (actm.) 01.jpg"
+  },
+  {
+   "id": "qernoun",
+   "name": "42. القرنون (Papaver somniferum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Opium_poppy.jpg/960px-Opium_poppy.jpg",
+   "file": "Opium poppy.jpg"
+  },
+  {
+   "id": "loubia",
+   "name": "43. اللوبيا (Lupinus albus)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Lupinus_albus.JPG/960px-Lupinus_albus.JPG",
+   "file": "Lupinus albus.JPG"
+  },
+  {
+   "id": "kharroub",
+   "name": "44. الخروب (Ceratonia siliqua)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Algarrobo%2C_%C3%A1rbol_frutal_%28Ceratonia_Siliqua_L.%2C_1753%29.jpg/960px-Algarrobo%2C_%C3%A1rbol_frutal_%28Ceratonia_Siliqua_L.%2C_1753%29.jpg",
+   "file": "Algarrobo, árbol frutal (Ceratonia Siliqua L., 1753).jpg"
+  },
+  {
+   "id": "sdess",
+   "name": "45. السدر (Ziziphus lotus)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Grass_Eggar_%28Lasiocampa_trifolii%29_caterpillar_on_Lotus_of_the_Lotophages_%28Ziziphus_lotus%29_%2852072597191%29.jpg/960px-Grass_Eggar_%28Lasiocampa_trifolii%29_caterpillar_on_Lotus_of_the_Lotophages_%28Ziziphus_lotus%29_%2852072597191%29.jpg",
+   "file": "Grass Eggar (Lasiocampa trifolii) caterpillar on Lotus of the Lotophages (Ziziphus lotus) (52072597191).jpg"
+  },
+  {
+   "id": "sedra",
+   "name": "46. السدر (Ziziphus spina-christi)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Ziziphus_spina-Christi.jpg/960px-Ziziphus_spina-Christi.jpg",
+   "file": "Ziziphus spina-Christi.jpg"
+  },
+  {
+   "id": "tmar",
+   "name": "47. التمر (Phoenix dactylifera)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Phoenix_dactylifera%2C_date_palm_7026.jpg/960px-Phoenix_dactylifera%2C_date_palm_7026.jpg",
+   "file": "Phoenix dactylifera, date palm 7026.jpg"
+  },
+  {
+   "id": "doum",
+   "name": "48. الدوم (Chamaerops humilis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Chamaerops_humilis%2C_Christchurch_Botanic_Gardens%2C_Canterbury%2C_New_Zealand_05.jpg/960px-Chamaerops_humilis%2C_Christchurch_Botanic_Gardens%2C_Canterbury%2C_New_Zealand_05.jpg",
+   "file": "Chamaerops humilis, Christchurch Botanic Gardens, Canterbury, New Zealand 05.jpg"
+  },
+  {
+   "id": "argan",
+   "name": "49. أركان (Argania spinosa)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/Argania_spinosa.jpg/960px-Argania_spinosa.jpg",
+   "file": "Argania spinosa.jpg"
+  },
+  {
+   "id": "azemmour",
+   "name": "51. العثمور / الزعرور (Crataegus monogyna)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/%28MHNT%29_Crataegus_monogyna_-_Fruits.jpg/960px-%28MHNT%29_Crataegus_monogyna_-_Fruits.jpg",
+   "file": "(MHNT) Crataegus monogyna - Fruits.jpg"
+  },
+  {
+   "id": "tuffah",
+   "name": "52. التفاح (Malus domestica)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Apple_Malus_domestica_Zoete_Peppel._%28actm%29.jpg/960px-Apple_Malus_domestica_Zoete_Peppel._%28actm%29.jpg",
+   "file": "Apple Malus domestica Zoete Peppel. (actm).jpg"
+  },
+  {
+   "id": "karmous",
+   "name": "53. الكرموس (Ficus carica)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Ficus-carica_-_bancal_20110416a.jpg/960px-Ficus-carica_-_bancal_20110416a.jpg",
+   "file": "Ficus-carica - bancal 20110416a.jpg"
+  },
+  {
+   "id": "tin",
+   "name": "54. التين الشوكي (Opuntia ficus-indica)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Hint_inciri_-_Indian_fig_-_Opuntia_ficus-indica_01.JPG/960px-Hint_inciri_-_Indian_fig_-_Opuntia_ficus-indica_01.JPG",
+   "file": "Hint inciri - Indian fig - Opuntia ficus-indica 01.JPG"
+  },
+  {
+   "id": "rman",
+   "name": "55. الرمان (Punica granatum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Granado_%28Punica_granatum%29%2C_Mahdia%2C_T%C3%BAnez%2C_2016-09-03%2C_DD_02.jpg/960px-Granado_%28Punica_granatum%29%2C_Mahdia%2C_T%C3%BAnez%2C_2016-09-03%2C_DD_02.jpg",
+   "file": "Granado (Punica granatum), Mahdia, Túnez, 2016-09-03, DD 02.jpg"
+  },
+  {
+   "id": "safssaf",
+   "name": "56. الصفصاف (Salix alba)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/2026-03-06_Alte_Silberweide_im_Auwald_bei_Neupotz_%28D500-97215M%29_by_Achim_Lammerts.jpg/960px-2026-03-06_Alte_Silberweide_im_Auwald_bei_Neupotz_%28D500-97215M%29_by_Achim_Lammerts.jpg",
+   "file": "2026-03-06 Alte Silberweide im Auwald bei Neupotz (D500-97215M) by Achim Lammerts.jpg"
+  },
+  {
+   "id": "ghar",
+   "name": "57. الغار (Laurus nobilis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Fruits_of_Laurus_nobilis-2024-09-28.jpg/960px-Fruits_of_Laurus_nobilis-2024-09-28.jpg",
+   "file": "Fruits of Laurus nobilis-2024-09-28.jpg"
+  },
+  {
+   "id": "rayhane",
+   "name": "58. الريحان (Myrtus communis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/%28MHNT%29_Myrtus_communis_subsp._tarentina.jpg/960px-%28MHNT%29_Myrtus_communis_subsp._tarentina.jpg",
+   "file": "(MHNT) Myrtus communis subsp. tarentina.jpg"
+  },
+  {
+   "id": "karkad",
+   "name": "59. الكركديه (Hibiscus sabdariffa)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/Arya_-_hibiscus_sabdariffa_in_bulak_Lor_Jatibarang_2019.jpg/960px-Arya_-_hibiscus_sabdariffa_in_bulak_Lor_Jatibarang_2019.jpg",
+   "file": "Arya - hibiscus sabdariffa in bulak Lor Jatibarang 2019.jpg"
+  },
+  {
+   "id": "khatmi",
+   "name": "60. الخطمي (Althaea officinalis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/Althaea_officinalis%2C_2020-10-04%2C_Carnegie%2C_03.jpg/960px-Althaea_officinalis%2C_2020-10-04%2C_Carnegie%2C_03.jpg",
+   "file": "Althaea officinalis, 2020-10-04, Carnegie, 03.jpg"
+  },
+  {
+   "id": "khobbiza",
+   "name": "61. الخبازة (Alcea rosea)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/%27Alcea_rosea%27_Halo_Series_Hollyhock_Cerise_Henham_Essex_England.jpg/960px-%27Alcea_rosea%27_Halo_Series_Hollyhock_Cerise_Henham_Essex_England.jpg",
+   "file": "'Alcea rosea' Halo Series Hollyhock Cerise Henham Essex England.jpg"
+  },
+  {
+   "id": "zafzaf",
+   "name": "62. الزفزاف (Sambucus nigra)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/00_3769_Schwarzen_Holunder_%28Sambucus_nigra%29.jpg/960px-00_3769_Schwarzen_Holunder_%28Sambucus_nigra%29.jpg",
+   "file": "00 3769 Schwarzen Holunder (Sambucus nigra).jpg"
+  },
+  {
+   "id": "sambouk",
+   "name": "63. السامبوڭ (Sambucus ebulus)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Caprifoliaceae_Sambucus_ebulus_Lin._-_Erbario_Frizzi_Perugia_n._502.jpg/960px-Caprifoliaceae_Sambucus_ebulus_Lin._-_Erbario_Frizzi_Perugia_n._502.jpg",
+   "file": "Caprifoliaceae Sambucus ebulus Lin. - Erbario Frizzi Perugia n. 502.jpg"
+  },
+  {
+   "id": "defla",
+   "name": "64. الدفلة (Nerium oleander)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/22/Nerium_oleander20130423_14.jpg/960px-Nerium_oleander20130423_14.jpg",
+   "file": "Nerium oleander20130423 14.jpg"
+  },
+  {
+   "id": "ftila",
+   "name": "65. الفتيلة (Daphne gnidium)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Daphne_-_Xylocopa_20110830.jpg/960px-Daphne_-_Xylocopa_20110830.jpg",
+   "file": "Daphne - Xylocopa 20110830.jpg"
+  },
+  {
+   "id": "guelb",
+   "name": "66. الكلب (Atractylis gummifera)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/Atractylis_gummifera.jpg/960px-Atractylis_gummifera.jpg",
+   "file": "Atractylis gummifera.jpg"
+  },
+  {
+   "id": "datura",
+   "name": "67. الداتورة (Datura stramonium)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Datura_stramonium_103790317.jpg/960px-Datura_stramonium_103790317.jpg",
+   "file": "Datura stramonium 103790317.jpg"
+  },
+  {
+   "id": "chouik",
+   "name": "68. الشوك (Carthamus caeruleus)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Depressariinae_%2810.3897-zookeys.684.13383%29_Figures_10%E2%80%9311.jpg/960px-Depressariinae_%2810.3897-zookeys.684.13383%29_Figures_10%E2%80%9311.jpg",
+   "file": "Depressariinae (10.3897-zookeys.684.13383) Figures 10–11.jpg"
+  },
+  {
+   "id": "chouk_lihoud",
+   "name": "69. شوك اليهود (Acanthus mollis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/%28MHNT%29_Acanthus_mollis_bud_-_Boileau%2C_Bouloc%2C_France.jpg/960px-%28MHNT%29_Acanthus_mollis_bud_-_Boileau%2C_Bouloc%2C_France.jpg",
+   "file": "(MHNT) Acanthus mollis bud - Boileau, Bouloc, France.jpg"
+  },
+  {
+   "id": "khennour",
+   "name": "70. الخنور (Cistus monspeliensis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Cistus_May_2014-3.jpg/960px-Cistus_May_2014-3.jpg",
+   "file": "Cistus May 2014-3.jpg"
+  },
+  {
+   "id": "tizghart",
+   "name": "71. تيزغارت (Cistus salviifolius)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/00_3288_Cistus_salviifolius_-_Salbeibl%C3%A4ttrige_Zistrose.jpg/960px-00_3288_Cistus_salviifolius_-_Salbeibl%C3%A4ttrige_Zistrose.jpg",
+   "file": "00 3288 Cistus salviifolius - Salbeiblättrige Zistrose.jpg"
+  },
+  {
+   "id": "toubib",
+   "name": "72. الطبيب (Cistus ladanifer)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Aracena_-_Cistus_ladanifer_01.jpg/960px-Aracena_-_Cistus_ladanifer_01.jpg",
+   "file": "Aracena - Cistus ladanifer 01.jpg"
+  },
+  {
+   "id": "kharou",
+   "name": "73. الخرو (Cistus creticus)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/00_4288_Kretische_Zistrose_%28Cistus_creticus%29.jpg/960px-00_4288_Kretische_Zistrose_%28Cistus_creticus%29.jpg",
+   "file": "00 4288 Kretische Zistrose (Cistus creticus).jpg"
+  },
+  {
+   "id": "tirghist",
+   "name": "74. تيرغيست (Genista tricuspidata)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Genista_tricuspidata_kz01.jpg/960px-Genista_tricuspidata_kz01.jpg",
+   "file": "Genista tricuspidata kz01.jpg"
+  },
+  {
+   "id": "ouzal",
+   "name": "75. الوزال (Genista quadriflora)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Illustrationes_florae_Atlanticae_%28Tab._115%29_BHL36878596.jpg/960px-Illustrationes_florae_Atlanticae_%28Tab._115%29_BHL36878596.jpg",
+   "file": "Illustrationes florae Atlanticae (Tab. 115) BHL36878596.jpg"
+  },
+  {
+   "id": "azir",
+   "name": "76. أزير (Lavandula stoechas)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Lavandula_stoechas_RF.jpg/960px-Lavandula_stoechas_RF.jpg",
+   "file": "Lavandula stoechas RF.jpg"
+  },
+  {
+   "id": "halhal",
+   "name": "77. الحلحال (Lavandula multifida)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Lavandula_multifida.jpg/960px-Lavandula_multifida.jpg",
+   "file": "Lavandula multifida.jpg"
+  },
+  {
+   "id": "khezama",
+   "name": "78. الخزامى (Lavandula pedunculata)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Lavandula_pedunculata_20190505a.jpg/960px-Lavandula_pedunculata_20190505a.jpg",
+   "file": "Lavandula pedunculata 20190505a.jpg"
+  },
+  {
+   "id": "zaatar_kheli",
+   "name": "80. الزعتر الخلي (Thymus zygis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Thymus_zygis.jpg/960px-Thymus_zygis.jpg",
+   "file": "Thymus zygis.jpg"
+  },
+  {
+   "id": "marddouch",
+   "name": "81. المرددوش (Origanum majorana)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Majoran_%28Origanum_majorana%29_Keimling-1-Josef_Schlaghecken.jpg/960px-Majoran_%28Origanum_majorana%29_Keimling-1-Josef_Schlaghecken.jpg",
+   "file": "Majoran (Origanum majorana) Keimling-1-Josef Schlaghecken.jpg"
+  },
+  {
+   "id": "zaatar_berri",
+   "name": "82. الزعتر البري (Origanum vulgare)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/2017-07-23_%2844%29_Origanum_vulgare_%28oregano%29_and_Buphthalmum_salicifolium_%28ox-eye%29_at_D%C3%BCrrenstein_%28Ybbstaler_Alpen%29.jpg/960px-2017-07-23_%2844%29_Origanum_vulgare_%28oregano%29_and_Buphthalmum_salicifolium_%28ox-eye%29_at_D%C3%BCrrenstein_%28Ybbstaler_Alpen%29.jpg",
+   "file": "2017-07-23 (44) Origanum vulgare (oregano) and Buphthalmum salicifolium (ox-eye) at Dürrenstein (Ybbstaler Alpen).jpg"
+  },
+  {
+   "id": "merriout",
+   "name": "83. المريوت (Marrubium vulgare)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Marrubium_vulgare_in_Mexico_I.jpg/960px-Marrubium_vulgare_in_Mexico_I.jpg",
+   "file": "Marrubium vulgare in Mexico I.jpg"
+  },
+  {
+   "id": "chahma",
+   "name": "84. الشحمة (Salvia verbenaca)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/SALVIA_VERBENACA_-_LLANERA_-_IB-379_%28T%C3%A0rrec%29.JPG/960px-SALVIA_VERBENACA_-_LLANERA_-_IB-379_%28T%C3%A0rrec%29.JPG",
+   "file": "SALVIA VERBENACA - LLANERA - IB-379 (Tàrrec).JPG"
+  },
+  {
+   "id": "salvia_montana",
+   "name": "85. السالمية الجبلية (Salvia taraxacifolia)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Salvia_taraxacifolia.jpg/960px-Salvia_taraxacifolia.jpg",
+   "file": "Salvia taraxacifolia.jpg"
+  },
+  {
+   "id": "nanaa",
+   "name": "86. النعناع (Mentha spicata)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/00_1984_Gr%C3%BCne_Minze_%28Mentha_Spicata%29_-_Schmetterling_%28Weissling%29.jpg/960px-00_1984_Gr%C3%BCne_Minze_%28Mentha_Spicata%29_-_Schmetterling_%28Weissling%29.jpg",
+   "file": "00 1984 Grüne Minze (Mentha Spicata) - Schmetterling (Weissling).jpg"
+  },
+  {
+   "id": "flio_berri",
+   "name": "87. فليو البري (Mentha suaveolens)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Apple_mint_%28lat.mentha_suaveolens%29.jpg/960px-Apple_mint_%28lat.mentha_suaveolens%29.jpg",
+   "file": "Apple mint (lat.mentha suaveolens).jpg"
+  },
+  {
+   "id": "timija",
+   "name": "88. تميجة (Mentha gattefossei)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Mentha_gattefossei_%28aka%29.jpg/960px-Mentha_gattefossei_%28aka%29.jpg",
+   "file": "Mentha gattefossei (aka).jpg"
+  },
+  {
+   "id": "mkhinza",
+   "name": "89. المخينزة (Dysphania ambrosioides)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Dysphania_ambrosioides%2C_Santa_Coloma_de_Farners.jpg/960px-Dysphania_ambrosioides%2C_Santa_Coloma_de_Farners.jpg",
+   "file": "Dysphania ambrosioides, Santa Coloma de Farners.jpg"
+  },
+  {
+   "id": "khebbiz",
+   "name": "91. الخبيز (Malva parviflora)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/%28MHNT%29_Malva_parviflora_-_Habitus.jpg/960px-%28MHNT%29_Malva_parviflora_-_Habitus.jpg",
+   "file": "(MHNT) Malva parviflora - Habitus.jpg"
+  },
+  {
+   "id": "bekkoula",
+   "name": "92. البقلة (Portulaca grandiflora)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Portulaca_grandiflora%2C_Burdwan%2C_30032014_%281%29.jpg/960px-Portulaca_grandiflora%2C_Burdwan%2C_30032014_%281%29.jpg",
+   "file": "Portulaca grandiflora, Burdwan, 30032014 (1).jpg"
+  },
+  {
+   "id": "harriga",
+   "name": "93. الحريكة (Urtica dioica)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Brandnetel%2C_Urtica_dioica%2C_Locatie%2C_Famberhorst.jpg/960px-Brandnetel%2C_Urtica_dioica%2C_Locatie%2C_Famberhorst.jpg",
+   "file": "Brandnetel, Urtica dioica, Locatie, Famberhorst.jpg"
+  },
+  {
+   "id": "harriga_sghira",
+   "name": "94. الحريكة الصغيرة (اسم محلي)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/%28MHNT%29_Urtica_urens_-_leaves.jpg/960px-%28MHNT%29_Urtica_urens_-_leaves.jpg",
+   "file": "(MHNT) Urtica urens - leaves.jpg"
+  },
+  {
+   "id": "khellala",
+   "name": "95. الخلالة (Anacyclus pyrethrum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Anacyclus_pyrethrum_depressus_closed.jpg/960px-Anacyclus_pyrethrum_depressus_closed.jpg",
+   "file": "Anacyclus pyrethrum depressus closed.jpg"
+  },
+  {
+   "id": "tifla",
+   "name": "96. الطفلة (Thymelaea hirsuta)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Thymelaea_hirsuta.jpg/960px-Thymelaea_hirsuta.jpg",
+   "file": "Thymelaea hirsuta.jpg"
+  },
+  {
+   "id": "metnan",
+   "name": "97. المتنان (Thymelaea microphylla)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Thymelaea_microphylla_flowers_and_leaves.jpg/960px-Thymelaea_microphylla_flowers_and_leaves.jpg",
+   "file": "Thymelaea microphylla flowers and leaves.jpg"
+  },
+  {
+   "id": "alouka",
+   "name": "98. العلوكة (Withania frutescens)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Withania_frutescens80652.jpg/960px-Withania_frutescens80652.jpg",
+   "file": "Withania frutescens80652.jpg"
+  },
+  {
+   "id": "ghessal",
+   "name": "99. الغسال (Salsola vermiculata)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/SALSOLA_VERMICULATA_-_AGUDA_-_IB-720_%28Siscall%29.JPG/960px-SALSOLA_VERMICULATA_-_AGUDA_-_IB-720_%28Siscall%29.JPG",
+   "file": "SALSOLA VERMICULATA - AGUDA - IB-720 (Siscall).JPG"
+  },
+  {
+   "id": "toutia",
+   "name": "101. التوت (Morus alba)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/%28MHNT%29_Morus_alba_-_immatures_inflorescences_and_flowers.jpg/960px-%28MHNT%29_Morus_alba_-_immatures_inflorescences_and_flowers.jpg",
+   "file": "(MHNT) Morus alba - immatures inflorescences and flowers.jpg"
+  },
+  {
+   "id": "tout_ssoud",
+   "name": "102. التوت الأسود (Morus nigra)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Frutos_de_Morera_%28Morus_nigra%29%2C_Meliana%2C_comarca_Horta_Nord%2C_provincia_de_Valencia.jpg/960px-Frutos_de_Morera_%28Morus_nigra%29%2C_Meliana%2C_comarca_Horta_Nord%2C_provincia_de_Valencia.jpg",
+   "file": "Frutos de Morera (Morus nigra), Meliana, comarca Horta Nord, provincia de Valencia.jpg"
+  },
+  {
+   "id": "khokh",
+   "name": "103. الخوخ (Prunus persica)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Peach_flowers_2020_G1.jpg/960px-Peach_flowers_2020_G1.jpg",
+   "file": "Peach flowers 2020 G1.jpg"
+  },
+  {
+   "id": "louz",
+   "name": "104. اللوز (Prunus dulcis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Almendras_%28Prunus_dulcis%29%2C_Hu%C3%A9rmeda%2C_Espa%C3%B1a_2012-05-19%2C_DD_01.JPG/960px-Almendras_%28Prunus_dulcis%29%2C_Hu%C3%A9rmeda%2C_Espa%C3%B1a_2012-05-19%2C_DD_01.JPG",
+   "file": "Almendras (Prunus dulcis), Huérmeda, España 2012-05-19, DD 01.JPG"
+  },
+  {
+   "id": "sendian",
+   "name": "105. السنديان (Quercus ilex)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Ejemplares_de_Quercus_ilex_subsp._ilex.jpg/960px-Ejemplares_de_Quercus_ilex_subsp._ilex.jpg",
+   "file": "Ejemplares de Quercus ilex subsp. ilex.jpg"
+  },
+  {
+   "id": "affares",
+   "name": "106. العفاريس (Quercus coccifera)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Quercus_coccifera%2C_S%C3%A8te_01.jpg/960px-Quercus_coccifera%2C_S%C3%A8te_01.jpg",
+   "file": "Quercus coccifera, Sète 01.jpg"
+  },
+  {
+   "id": "sanoubar",
+   "name": "107. الصنوبر (Pinus halepensis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Aleppo_Pines_grove%2C_Pinet%2C_H%C3%A9rault_02.jpg/960px-Aleppo_Pines_grove%2C_Pinet%2C_H%C3%A9rault_02.jpg",
+   "file": "Aleppo Pines grove, Pinet, Hérault 02.jpg"
+  },
+  {
+   "id": "arz",
+   "name": "108. الأرز (Cedrus atlantica)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Atlas_cedar._Cedrus_atlantica._Pyramidal_to_flat._%2837085640963%29.jpg/960px-Atlas_cedar._Cedrus_atlantica._Pyramidal_to_flat._%2837085640963%29.jpg",
+   "file": "Atlas cedar. Cedrus atlantica. Pyramidal to flat. (37085640963).jpg"
+  },
+  {
+   "id": "thuya",
+   "name": "109. العرعار (Tetraclinis articulata)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/04/Tetraclinis_articulata.JPG/960px-Tetraclinis_articulata.JPG",
+   "file": "Tetraclinis articulata.JPG"
+  },
+  {
+   "id": "kafour",
+   "name": "111. الكافور (Cinnamomum camphora)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Canfora%2C_albero_cinnamomum_camphora.jpg/960px-Canfora%2C_albero_cinnamomum_camphora.jpg",
+   "file": "Canfora, albero cinnamomum camphora.jpg"
+  },
+  {
+   "id": "qorfa",
+   "name": "112. القرفة (Cinnamomum zeylanicum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Canelle_Cinnamomum_burmanni_Luc_Viatour.jpg/960px-Canelle_Cinnamomum_burmanni_Luc_Viatour.jpg",
+   "file": "Canelle Cinnamomum burmanni Luc Viatour.jpg"
+  },
+  {
+   "id": "qronfel",
+   "name": "113. القرنفل (Syzygium aromaticum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Starr_080103-1433_Syzygium_aromaticum.jpg/960px-Starr_080103-1433_Syzygium_aromaticum.jpg",
+   "file": "Starr 080103-1433 Syzygium aromaticum.jpg"
+  },
+  {
+   "id": "habb_felfel",
+   "name": "114. الفلفل الأسود (Piper nigrum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Black_Pepper_%28Piper_nigrum%29_fruits.jpg/960px-Black_Pepper_%28Piper_nigrum%29_fruits.jpg",
+   "file": "Black Pepper (Piper nigrum) fruits.jpg"
+  },
+  {
+   "id": "zanjabil",
+   "name": "115. الزنجبيل (Zingiber officinale)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Cultivo_de_Jengibre_%28Zingiber_officinale%29%2C_Takiwasi%2C_Per%C3%BA.jpg/960px-Cultivo_de_Jengibre_%28Zingiber_officinale%29%2C_Takiwasi%2C_Per%C3%BA.jpg",
+   "file": "Cultivo de Jengibre (Zingiber officinale), Takiwasi, Perú.jpg"
+  },
+  {
+   "id": "kourkoum",
+   "name": "116. الخرقوم (Curcuma longa)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/A_detailed_side_view_of_a_Curcuma_longa_inflorescence%2C_locally_known_as_Haldhi_Phool_in_Assam%2C_showcasing_the_delicate_yellow_blossoms_beneath_the_colorful_bracts._01.jpg/960px-thumbnail.jpg",
+   "file": "A detailed side view of a Curcuma longa inflorescence, locally known as Haldhi Phool in Assam, showcasing the delicate yellow blossoms beneath the colorful bracts. 01.jpg"
+  },
+  {
+   "id": "hel",
+   "name": "117. الهيل (Elettaria cardamomum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/Cardamom_%28Elettaria_cardamomum%29.jpg/960px-Cardamom_%28Elettaria_cardamomum%29.jpg",
+   "file": "Cardamom (Elettaria cardamomum).jpg"
+  },
+  {
+   "id": "karkar",
+   "name": "118. الكركم (Curcuma zedoaria)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/Curcuma_zedoaria_0zz.jpg/960px-Curcuma_zedoaria_0zz.jpg",
+   "file": "Curcuma zedoaria 0zz.jpg"
+  },
+  {
+   "id": "smaq",
+   "name": "121. السماق (Rhus coriaria)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Anacardiaceae_Rhus_coriaria_L._-_Erbario_Frizzi_Perugia_n._3326.jpg/960px-Anacardiaceae_Rhus_coriaria_L._-_Erbario_Frizzi_Perugia_n._3326.jpg",
+   "file": "Anacardiaceae Rhus coriaria L. - Erbario Frizzi Perugia n. 3326.jpg"
+  },
+  {
+   "id": "chib",
+   "name": "122. الشيبة (اسم محلي للشيح)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Artemishole.jpg/960px-Artemishole.jpg",
+   "file": "Artemishole.jpg"
+  },
+  {
+   "id": "tebbouna",
+   "name": "123. البعيثران (Artemisia judaica)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Botanique._1._Artemisia_monosperma%3B_2._Artemisia_inculta%3B_3._Artemisia_judaica_%28NYPL_b14212718-1268675%29.jpg/960px-Botanique._1._Artemisia_monosperma%3B_2._Artemisia_inculta%3B_3._Artemisia_judaica_%28NYPL_b14212718-1268675%29.jpg",
+   "file": "Botanique. 1. Artemisia monosperma; 2. Artemisia inculta; 3. Artemisia judaica (NYPL b14212718-1268675).jpg"
+  },
+  {
+   "id": "chih_azzrak",
+   "name": "125. الشيح الأزرق (اسم محلي)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Artemisia_caerulescens.jpg/960px-Artemisia_caerulescens.jpg",
+   "file": "Artemisia caerulescens.jpg"
+  },
+  {
+   "id": "khayyata",
+   "name": "126. الخياطة (Artemisia arborescens)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Artemisia_arborescens_1c.JPG/960px-Artemisia_arborescens_1c.JPG",
+   "file": "Artemisia arborescens 1c.JPG"
+  },
+  {
+   "id": "zerr",
+   "name": "127. الزعرور (Crataegus laciniata)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Crataegus_laciniata_%28Rosaceae%29_detail.JPG/960px-Crataegus_laciniata_%28Rosaceae%29_detail.JPG",
+   "file": "Crataegus laciniata (Rosaceae) detail.JPG"
+  },
+  {
+   "id": "tifah_berri",
+   "name": "128. التفاح البري (Malus sylvestris)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Egyptian_grasshopper_%28Anacridium_aegyptium%29_on_crab_apple_%28Malus_sylvestris%29_Corfu.jpg/960px-Egyptian_grasshopper_%28Anacridium_aegyptium%29_on_crab_apple_%28Malus_sylvestris%29_Corfu.jpg",
+   "file": "Egyptian grasshopper (Anacridium aegyptium) on crab apple (Malus sylvestris) Corfu.jpg"
+  },
+  {
+   "id": "karmous_berri",
+   "name": "129. الكرموس البري (Ficus salicifolia)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Ficus_salicifolia%2C_vye%2C_Wonderboom_NR%2C_a.jpg/960px-Ficus_salicifolia%2C_vye%2C_Wonderboom_NR%2C_a.jpg",
+   "file": "Ficus salicifolia, vye, Wonderboom NR, a.jpg"
+  },
+  {
+   "id": "safsaf_berri",
+   "name": "130. الصفصاف البري (Salix pedicellata)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Salix_pedicellata_403338672.jpg/960px-Salix_pedicellata_403338672.jpg",
+   "file": "Salix pedicellata 403338672.jpg"
+  },
+  {
+   "id": "ghar_berri",
+   "name": "131. الغار البري (Laurus azorica)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Laurus_azorica_%28Flowers%29.jpg/960px-Laurus_azorica_%28Flowers%29.jpg",
+   "file": "Laurus azorica (Flowers).jpg"
+  },
+  {
+   "id": "rayhane_berri",
+   "name": "132. الريحان البري (Myrtus nivellei)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Myrtus_nivellei.jpg/960px-Myrtus_nivellei.jpg",
+   "file": "Myrtus nivellei.jpg"
+  },
+  {
+   "id": "khatmi_berri",
+   "name": "133. الخطمي البري (Malva hispanica)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/2026-06-27_Malva_hispanica_in_Parque_Natural_das_Serras_de_Aire_e_Candeeiros.jpg/960px-2026-06-27_Malva_hispanica_in_Parque_Natural_das_Serras_de_Aire_e_Candeeiros.jpg",
+   "file": "2026-06-27 Malva hispanica in Parque Natural das Serras de Aire e Candeeiros.jpg"
+  },
+  {
+   "id": "zafzaf_berri",
+   "name": "134. الزفزاف البري (Sambucus palmensis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Sambucus_palmensis%2C_Conservatoire_botanique_national_de_Brest_01.jpg/960px-Sambucus_palmensis%2C_Conservatoire_botanique_national_de_Brest_01.jpg",
+   "file": "Sambucus palmensis, Conservatoire botanique national de Brest 01.jpg"
+  },
+  {
+   "id": "defla_berri",
+   "name": "135. الدفلة البرية (Nerium grandiflorum)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/%D8%B4%D8%AC%D8%B1%D8%A9_%D8%AF%D9%81%D9%84%D9%89.jpg/960px-%D8%B4%D8%AC%D8%B1%D8%A9_%D8%AF%D9%81%D9%84%D9%89.jpg",
+   "file": "شجرة دفلى.jpg"
+  },
+  {
+   "id": "ftila_berri",
+   "name": "136. الفتيلة البرية (Daphne laureola)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/20230228_140631_Daphne_laureola_L.jpg/960px-20230228_140631_Daphne_laureola_L.jpg",
+   "file": "20230228 140631 Daphne laureola L.jpg"
+  },
+  {
+   "id": "chouk_berri",
+   "name": "137. الشوك البري (Carthamus lanatus)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/C._lanatus-3.JPG/960px-C._lanatus-3.JPG",
+   "file": "C. lanatus-3.JPG"
+  },
+  {
+   "id": "khennour_berri",
+   "name": "138. الخنور البري (Cistus heterophyllus)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Cistus_heterophyllus%2C_Conservatoire_botanique_national_de_Brest_01.jpg/960px-Cistus_heterophyllus%2C_Conservatoire_botanique_national_de_Brest_01.jpg",
+   "file": "Cistus heterophyllus, Conservatoire botanique national de Brest 01.jpg"
+  },
+  {
+   "id": "halhal_berri",
+   "name": "139. الحلحال البري (Lavandula lanata)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Lavandula_lanata_12.jpg/960px-Lavandula_lanata_12.jpg",
+   "file": "Lavandula lanata 12.jpg"
+  },
+  {
+   "id": "zaatar_berri_2",
+   "name": "140. الزعتر البري الجبلي (Thymus algeriensis)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Flora_Atlantica%2C_sive%2C_Historia_plantarum_quae_in_Atlante%2C_agro_Tunetano_et_Algeriensi_crescunt_%28Plate_129%29_%289298154893%29.jpg/960px-Flora_Atlantica%2C_sive%2C_Historia_plantarum_quae_in_Atlante%2C_agro_Tunetano_et_Algeriensi_crescunt_%28Plate_129%29_%289298154893%29.jpg",
+   "file": "Flora Atlantica, sive, Historia plantarum quae in Atlante, agro Tunetano et Algeriensi crescunt (Plate 129) (9298154893).jpg"
+  },
+  {
+   "id": "toum",
+   "name": "141. الثوم (Ail cultivé)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Allium_sativum._Restra_de_allos_de_Oroso-_Galiza.jpg/960px-Allium_sativum._Restra_de_allos_de_Oroso-_Galiza.jpg",
+   "file": "Allium sativum. Restra de allos de Oroso- Galiza.jpg"
+  },
+  {
+   "id": "bsal",
+   "name": "142. البصل (Oignon)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/20250818_Allium_cepa_Cebula_zwyczajna_buds_Panewniki.jpg/960px-20250818_Allium_cepa_Cebula_zwyczajna_buds_Panewniki.jpg",
+   "file": "20250818 Allium cepa Cebula zwyczajna buds Panewniki.jpg"
+  },
+  {
+   "id": "zaafran",
+   "name": "143. الزعفران (Safran)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Crocus_sativus%2C_saffron%285%29.jpg/960px-Crocus_sativus%2C_saffron%285%29.jpg",
+   "file": "Crocus sativus, saffron(5).jpg"
+  },
+  {
+   "id": "ward_beldi",
+   "name": "144. الورد البلدي (Rose)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Damaszener-Rose_%27Madame_Hardy%27_im_botanischen_Garten_M%C3%BCnchen-Nymphenburg_03.jpg/960px-Damaszener-Rose_%27Madame_Hardy%27_im_botanischen_Garten_M%C3%BCnchen-Nymphenburg_03.jpg",
+   "file": "Damaszener-Rose 'Madame Hardy' im botanischen Garten München-Nymphenburg 03.jpg"
+  },
+  {
+   "id": "jaada",
+   "name": "145. الجعدة (Germandrée)",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Teucrium_polium%2C_%CE%A4%CE%B5%CF%8D%CE%BA%CF%81%CE%B9%CE%BF_%CF%84%CE%BF_%CF%80%CF%8C%CE%BB%CE%B9%CE%BF%2C_%CE%91%CE%B3%CE%B1%CF%80%CE%BF%CE%B2%CF%8C%CF%84%CE%B1%CE%BD%CE%BF.jpg",
+   "file": "Teucrium polium, Τεύκριο το πόλιο, Αγαποβότανο.jpg"
+  },
+  {
+   "id": "tayoun",
+   "name": "146. الطيون (Inule visqueuse)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Dittrichia_viscosa%2C_Cessenon-sur-Orb_01.jpg/960px-Dittrichia_viscosa%2C_Cessenon-sur-Orb_01.jpg",
+   "file": "Dittrichia viscosa, Cessenon-sur-Orb 01.jpg"
+  },
+  {
+   "id": "berberis",
+   "name": "147. البرباريس (Épine-vinette)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Berberis_hispanica_ArboretumLaAlfaguara.jpg/960px-Berberis_hispanica_ArboretumLaAlfaguara.jpg",
+   "file": "Berberis hispanica ArboretumLaAlfaguara.jpg"
+  },
+  {
+   "id": "kettan",
+   "name": "148. الكتان (Lin)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Linum_usitatissimum%2C_Findlay_Township%2C_2024-10-22-1.jpg/960px-Linum_usitatissimum%2C_Findlay_Township%2C_2024-10-22-1.jpg",
+   "file": "Linum usitatissimum, Findlay Township, 2024-10-22-1.jpg"
+  },
+  {
+   "id": "jeljlan",
+   "name": "149. الجلجلان (Sésame)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Sesamum_indicum%28%E0%A6%A4%E0%A6%BF%E0%A6%B2_%E0%A6%97%E0%A6%9B%29.jpg/960px-Sesamum_indicum%28%E0%A6%A4%E0%A6%BF%E0%A6%B2_%E0%A6%97%E0%A6%9B%29.jpg",
+   "file": "Sesamum indicum(তিল গছ).jpg"
+  },
+  {
+   "id": "narenj",
+   "name": "150. النارنج (Bigaradier)",
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Citrus_aurantium.jpg/960px-Citrus_aurantium.jpg",
+   "file": "Citrus aurantium.jpg"
+  }
+ ]
+}
