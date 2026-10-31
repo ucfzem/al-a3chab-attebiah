@@ -1,16 +1,17 @@
 // Service worker hors-ligne : coquille + données + polices + toutes les images (cache dédié).
-const CACHE = 'a3chab-v1.4.1';
+const CACHE = 'a3chab-v1.4.2';
 const IMG_CACHE = 'a3chab-images-v1';
 const CORE = [
   './',
   './index.html',
-  './style.css?v=1.4.0',
-  './wiki-images.js?v=1.4.0',
-  './data.js?v=1.4.0',
-  './app.js?v=1.4.0',
+  './style.css?v=1.4.2',
+  './wiki-images.js?v=1.4.2',
+  './data.js?v=1.4.2',
+  './app.js?v=1.4.2',
   './image-manifest.json?v=1.4.0',
   './manifest.json',
   './icon.svg',
+  './intro.jpg',
   './icon-192.png',
   './icon-512.png'
 ];
