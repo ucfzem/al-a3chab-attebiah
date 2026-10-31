@@ -1,5 +1,5 @@
 // Service worker hors-ligne : coquille + données + polices + toutes les images (cache dédié).
-const CACHE = 'a3chab-v1.4.2';
+const CACHE = 'a3chab-v1.4.3';
 const IMG_CACHE = 'a3chab-images-v1';
 const CORE = [
   './',
@@ -99,13 +99,13 @@ self.addEventListener('fetch', (event) => {
 
   if (isImageRequest(url)) {
     event.respondWith((async () => {
-      const hit = await caches.match(req);
+      const imgCache = await caches.open(IMG_CACHE);
+      const hit = await imgCache.match(req);
       if (hit) return hit;
       try {
         const res = await fetchTO(req, {}, 30000);
         if (res && (res.ok || res.type === 'opaque')) {
-          const c = await caches.open(IMG_CACHE);
-          await c.put(req, res.clone());
+          await imgCache.put(req, res.clone());
         }
         return res;
       } catch (e) {
