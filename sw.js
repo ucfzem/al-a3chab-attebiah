@@ -15,6 +15,7 @@ const CORE = [
   './icon-512.png'
 ];
 const IMG_HOSTS = ['commons.wikimedia.org', 'upload.wikimedia.org', 'thumb.wikimedia.org'];
+const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@400;700&display=swap';
 
 function fetchTO(url, opts, ms) {
   const c = new AbortController();
@@ -33,6 +34,17 @@ self.addEventListener('install', (event) => {
     await Promise.all(CORE.map((u) => fetchTO(u, {}, 15000).then((r) => {
       if (r && (r.ok || r.type === 'opaque')) return cache.put(u, r);
     }).catch(() => {})));
+    try {
+      const cssRes = await fetchTO(FONT_CSS, { mode: 'cors' }, 15000);
+      if (cssRes && cssRes.ok) {
+        await cache.put(FONT_CSS, cssRes.clone());
+        const css = await cssRes.text();
+        const fontUrls = [...new Set([...css.matchAll(/url\((https:\/\/fonts\.gstatic\.com\/[^)]+)\)/g)].map((m) => m[1]))];
+        await Promise.all(fontUrls.map((u) => fetchTO(u, { mode: 'cors' }, 15000).then((r) => {
+          if (r && r.ok) return cache.put(u, r);
+        }).catch(() => {})));
+      }
+    } catch (e) {}
   })());
 });
 
@@ -112,7 +124,7 @@ self.addEventListener('fetch', (event) => {
       }
       return res;
     } catch (e) {
-      return hit || new Response('', { status: 504 });
+      return hit || new Response('', { status: 204 });
     }
   })());
 });
