@@ -4,6 +4,12 @@ const app = document.getElementById('app');
 const BOOK = window.BOOK_DATA || [];
 const chapters = Array.isArray(BOOK) ? BOOK : (BOOK.entries || []);
 
+const OFFLINE_CACHE = 'a3chab-images-v1';
+const OFFLINE_STATE_KEY = 'a3chab_offline_v1';
+let IMG_MANIFEST = null;
+const IMG_BY_ID = Object.create(null);
+const offlineState = { running: false, stopped: false, done: 0, total: 0, complete: false, failed: [] };
+
 
 let flat = null;
 let currentQuery = '';
@@ -187,7 +193,7 @@ function renderReader(id) {
   const note = isRef ? '<div class="ref-note">📌 بطاقة تعريف بالاسم المحلي — يُرجى مراجعة البطاقة الأصلية للاستعمالات الكاملة.</div>' : '';
   const body = String(ch.content || '').split('\n').map(p => '<p>' + highlight(p, nq).html + '</p>').join('');
   const photo = '<figure class="plant-photo">' +
-        '<img class="plant-img" data-latin="' + esc(ch.latin||'') + '" src="' + esc(commonsThumbUrl(ch.imageSource) || './icon.svg') + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" referrerpolicy="no-referrer" loading="lazy" decoding="async" onerror="imgFail(this)" />' +
+        '<img class="plant-img" data-latin="' + esc(ch.latin||'') + '" src="' + esc(thumbUrlFor(ch)) + '" alt="' + esc(ch.title + (ch.latin ? ' — ' + ch.latin : '')) + '" referrerpolicy="no-referrer" loading="lazy" decoding="async" onerror="imgFail(this)" />' +
         '<figcaption>📷 ' + esc(ch.imageCredit || 'Wikimedia Commons') +
           (ch.imageLicense ? ' · <a href="' + esc(ch.imageLicenseUrl || '#') + '" target="_blank" rel="noopener">' + esc(ch.imageLicense) + '</a>' : '') +
           ' · <a href="' + esc(ch.imageSource || '#') + '" target="_blank" rel="noopener">ويكيميديا كومنز</a>' +
@@ -337,7 +343,7 @@ function renderHome() {
           chapters.map((ch, i) =>
             '<button type="button" class="toc-item" data-id="' + esc(ch.id) + '">' +
               (ch.image
-                ? '<img class="toc-thumb plant-img" data-latin="' + esc(ch.latin||'') + '" src="' + esc(commonsThumbUrl(ch.imageSource) || './icon.svg') + '" alt="" referrerpolicy="no-referrer" loading="lazy" decoding="async" onerror="imgFail(this)" />'
+                ? '<img class="toc-thumb plant-img" data-latin="' + esc(ch.latin||'') + '" src="' + esc(thumbUrlFor(ch)) + '" alt="" referrerpolicy="no-referrer" loading="lazy" decoding="async" onerror="imgFail(this)" />'
                 : '<span class="toc-thumb placeholder" aria-hidden="true">🌿</span>') +
               '<span class="num">' + (ch.isHeader ? 'مقدمة' : toArabicDigits(i)) + '</span>' +
               '<span>' + esc(ch.title.replace(/^\d+\.\s*/, '')) + '</span>' +
@@ -583,7 +589,7 @@ function init() {
   window.addEventListener('hashchange', route);
   route();
 }
-init();
+loadImageManifest().finally(function () { init(); initOffline(); });
 
 
 
@@ -605,6 +611,211 @@ function commonsThumbUrl(src){
   var name; try { name = decodeURIComponent(m[1]); } catch (e) { name = m[1]; }
   return 'https://commons.wikimedia.org/wiki/Special:FilePath/' + encodeURIComponent(name.replace(/ /g, '_')) + '?width=640';
 }
+
+
+function thumbUrlFor(ch) {
+  if (!ch) return './icon.svg';
+  return IMG_BY_ID[ch.id] || commonsThumbUrl(ch.imageSource) || './icon.svg';
+}
+
+
+function loadImageManifest() {
+  return fetch('./image-manifest.json?v=1.4.0')
+    .then(function (r) { if (!r.ok) throw new Error('manifest ' + r.status); return r.json(); })
+    .then(function (j) {
+      IMG_MANIFEST = j;
+      (j.items || []).forEach(function (it) {
+        if (it && it.id && it.url) IMG_BY_ID[it.id] = it.url;
+      });
+    })
+    .catch(function () { IMG_MANIFEST = null; });
+}
+
+
+function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+
+function saveOfflineState() {
+  try {
+    localStorage.setItem(OFFLINE_STATE_KEY, JSON.stringify({
+      done: offlineState.done, total: offlineState.total,
+      complete: offlineState.complete, failed: offlineState.failed.slice(0, 20), ts: Date.now()
+    }));
+  } catch (e) {}
+}
+
+
+function offlineEls() {
+  return {
+    bar: document.getElementById('offlineBar'),
+    msg: document.getElementById('offlineMsg'),
+    fill: document.getElementById('offlineFill'),
+    btn: document.getElementById('offlineBtn')
+  };
+}
+
+
+function updateOfflineUI() {
+  var e = offlineEls();
+  if (!e.bar) return;
+  if (offlineState.complete) {
+    e.bar.hidden = false;
+    e.msg.textContent = 'الصور محفوظة للعمل دون اتصال ✓ (' + offlineState.total + ')';
+    e.fill.style.width = '100%';
+    e.btn.textContent = 'محفوظة';
+    e.btn.disabled = true;
+    clearTimeout(updateOfflineUI._t);
+    updateOfflineUI._t = setTimeout(function () { e.bar.hidden = true; }, 5000);
+    return;
+  }
+  e.bar.hidden = false;
+  e.btn.disabled = false;
+  var pct = offlineState.total ? Math.round(offlineState.done / offlineState.total * 100) : 0;
+  e.fill.style.width = pct + '%';
+  if (offlineState.running) {
+    e.msg.textContent = 'جارٍ تحميل الصور: ' + offlineState.done + '/' + offlineState.total;
+    e.btn.textContent = 'إيقاف';
+  } else if (offlineState.stopped) {
+    e.msg.textContent = 'تم إيقاف التحميل (' + offlineState.done + '/' + offlineState.total + ')';
+    e.btn.textContent = 'متابعة التحميل';
+  } else if (offlineState.failed.length) {
+    e.msg.textContent = 'تعذّر تحميل ' + offlineState.failed.length + ' صورة (' + offlineState.done + '/' + offlineState.total + ')';
+    e.btn.textContent = 'إعادة المحاولة';
+  } else {
+    e.msg.textContent = 'الصور غير محفوظة بعد (' + offlineState.done + '/' + offlineState.total + ')';
+    e.btn.textContent = 'تحميل الصور';
+  }
+}
+
+
+function initOffline() {
+  var e = offlineEls();
+  if (!e.bar || !('caches' in window) || !IMG_MANIFEST) return;
+  try {
+    var saved = JSON.parse(localStorage.getItem(OFFLINE_STATE_KEY) || 'null');
+    if (saved) {
+      offlineState.done = saved.done || 0;
+      offlineState.total = saved.total || 0;
+      offlineState.complete = !!saved.complete;
+      offlineState.failed = saved.failed || [];
+    }
+  } catch (err) {}
+
+  caches.open(OFFLINE_CACHE).then(function (c) { return c.keys(); }).then(function (keys) {
+    var have = Object.create(null);
+    keys.forEach(function (k) { have[k.url] = 1; });
+    var urls = (IMG_MANIFEST.items || []).map(function (it) { return it.url; });
+    var done = 0;
+    urls.forEach(function (u) { if (have[u]) done++; });
+    offlineState.total = urls.length;
+    offlineState.done = done;
+    offlineState.complete = urls.length > 0 && done >= urls.length;
+    updateOfflineUI();
+    if (!offlineState.complete) {
+      setTimeout(function () { if (!offlineState.complete && !offlineState.running) downloadAllImages(); }, 1500);
+    }
+  }).catch(function () { updateOfflineUI(); });
+
+  e.btn.onclick = function () {
+    if (offlineState.running) { offlineState.stopped = true; return; }
+    if (offlineState.complete) return;
+    offlineState.stopped = false;
+    offlineState.failed = [];
+    downloadAllImages();
+  };
+  window.addEventListener('online', function () {
+    if (!offlineState.complete && !offlineState.running) downloadAllImages();
+  });
+  updateOfflineUI();
+}
+
+
+function downloadAllImages() {
+  if (offlineState.running) return Promise.resolve();
+  if (!IMG_MANIFEST) {
+    return loadImageManifest().then(function () {
+      if (!IMG_MANIFEST) return;
+      return downloadAllImages();
+    });
+  }
+  var seen = Object.create(null);
+  var urls = [];
+  (IMG_MANIFEST.items || []).forEach(function (it) {
+    if (it && it.url && !seen[it.url]) { seen[it.url] = 1; urls.push(it.url); }
+  });
+  if (!urls.length) return Promise.resolve();
+
+  offlineState.running = true;
+  offlineState.stopped = false;
+  offlineState.failed = [];
+  offlineState.total = urls.length;
+  offlineState.done = 0;
+  updateOfflineUI();
+
+  var cachePromise = caches.open(OFFLINE_CACHE);
+  var idx = 0;
+
+  function fail(url) {
+    if (offlineState.failed.indexOf(url) < 0) offlineState.failed.push(url);
+    updateOfflineUI();
+  }
+
+  function one(url) {
+    return cachePromise.then(function (cache) {
+      return cache.match(url).then(function (hit) {
+        if (hit) { offlineState.done++; updateOfflineUI(); return; }
+        if (offlineState.stopped) return;
+        function attempt(n) {
+          if (offlineState.stopped) return Promise.resolve();
+          return fetch(url, { mode: 'cors', credentials: 'omit', cache: 'no-store' }).then(function (res) {
+            if (res.status === 429 || res.status >= 500) {
+              var ra = parseInt(res.headers.get('retry-after') || '0', 10);
+              return sleep(ra ? ra * 1000 : 1500 * Math.pow(2, n) + Math.random() * 400).then(function () {
+                return n < 3 ? attempt(n + 1) : fail(url);
+              });
+            }
+            var ct = res.headers.get('content-type') || '';
+            if (!res.ok || ct.indexOf('image/') !== 0) return fail(url);
+            return cache.put(url, res.clone()).then(function () {
+              offlineState.done++; updateOfflineUI(); saveOfflineState();
+            });
+          }).catch(function () {
+            return fetch(url, { mode: 'no-cors', credentials: 'omit' }).then(function (res2) {
+              if (res2 && res2.type === 'opaque') {
+                return cache.put(url, res2.clone()).then(function () {
+                  offlineState.done++; updateOfflineUI(); saveOfflineState();
+                });
+              }
+              return n < 3 ? sleep(1000 * (n + 1)).then(function () { return attempt(n + 1); }) : fail(url);
+            }).catch(function () {
+              return n < 3 ? sleep(1000 * (n + 1)).then(function () { return attempt(n + 1); }) : fail(url);
+            });
+          });
+        }
+        return attempt(0);
+      });
+    });
+  }
+
+  function worker() {
+    if (idx >= urls.length || offlineState.stopped) return Promise.resolve();
+    var url = urls[idx++];
+    return one(url).then(function () {
+      return sleep(120).then(worker);
+    });
+  }
+
+  var workers = [];
+  for (var i = 0; i < 4; i++) workers.push(worker());
+  return Promise.all(workers).then(function () {
+    offlineState.running = false;
+    offlineState.complete = !offlineState.stopped && offlineState.failed.length === 0 && offlineState.done >= urls.length;
+    saveOfflineState();
+    updateOfflineUI();
+  });
+}
+
+
 function imgFail(img){
   if (!img || img.dataset.fb) { if (img) { img.onerror = null; img.src = './icon.svg'; } return; }
   img.dataset.fb = '1';
